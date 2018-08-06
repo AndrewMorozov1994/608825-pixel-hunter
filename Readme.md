@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Андрей Морозов](https://up.htmlacademy.ru/ecmascript/6/user/608825).
-* Наставник: `Неизвестно`.
+* Наставник: [Вадим Шевяков](https://up.htmlacademy.ru/ecmascript/6/user/574589).
 
 ---
 
