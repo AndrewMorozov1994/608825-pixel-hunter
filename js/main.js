@@ -5,9 +5,31 @@ const LEFT_ARROW = 37;
 
 const mainElement = document.querySelector(`#main`);
 
+// Добавляем кнопки переключения
+document.querySelector(`body`).insertAdjacentHTML(`beforeEnd`, `
+  <div class="arrows__wrap">
+  <style>
+    .arrows__wrap {
+      position: absolute;
+      top: 95px;
+      left: 50%;
+      margin-left: -56px;
+    }
+    .arrows__btn {
+      background: none;
+      border: 2px solid black;
+      padding: 5px 20px;
+    }
+  </style>
+  <button class="arrows__btn arrows__btn--back"><-</button>
+  <button class="arrows__btn arrows__btn--next">-></button>
+</div>`);
+
+// Находим кнопки переключения
 const arrowWrapper = document.querySelector(`.arrows__wrap`);
 const nextSlide = arrowWrapper.querySelector(`.arrows__btn--next`);
 const backSlide = arrowWrapper.querySelector(`.arrows__btn--back`);
+//
 
 const selectSlide = (element) => {
   mainElement.innerHTML = ``;
