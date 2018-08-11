@@ -84,6 +84,6 @@ const resetGameOne = () => {
 
 gameOneForm.addEventListener(`click`, seeGameTwo);
 
-backButton.addEventListener(`click`, seeGreetingScreen(backButton, resetGameOne));
+seeGreetingScreen(backButton, resetGameOne);
 
 export default element;

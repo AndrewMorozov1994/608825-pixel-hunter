@@ -60,4 +60,5 @@ seeGreetingScreen(backButton);
 continueButton.addEventListener(`click`, () => {
   changeScreen(gameOne);
 });
+
 export default element;
