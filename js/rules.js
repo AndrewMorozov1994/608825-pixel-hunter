@@ -37,10 +37,6 @@ const inputName = element.querySelector(`.rules__input`);
 const continueButton = element.querySelector(`.rules__button`);
 const backButton = element.querySelector(`.back`);
 
-backButton.addEventListener(`click`, () => {
-  changeScreen(greeting);
-});
-
 inputName.addEventListener(`change`, () => {
   let numberOfSymbols = inputName.value;
 
@@ -51,8 +47,17 @@ inputName.addEventListener(`change`, () => {
   }
 });
 
+export const seeGreetingScreen = (backBtn, callback) => {
+  backBtn.addEventListener(`click`, ()=> {
+    if (callback) {
+      callback();
+    }
+    changeScreen(greeting);
+  });
+};
+
+seeGreetingScreen(backButton);
 continueButton.addEventListener(`click`, () => {
   changeScreen(gameOne);
 });
-
 export default element;
