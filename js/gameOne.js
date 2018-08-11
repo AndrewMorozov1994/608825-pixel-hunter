@@ -66,6 +66,7 @@ const backButton = element.querySelector(`.back`);
 const gameOneForm = element.querySelector(`.game__content`);
 
 backButton.addEventListener(`click`, () => {
+  resetGameOne();
   changeScreen(greeting);
 });
 
@@ -81,10 +82,7 @@ const seeGameTwo = () => {
 
 // Сбрасываем чекнутые поля
 export const resetGameOne = () => {
-  const gameAnswers = gameOneForm.querySelectorAll(`input`);
-  gameAnswers.forEach((el) => {
-    el.checked = false;
-  });
+  gameOneForm.reset();
 };
 
 gameOneForm.addEventListener(`click`, seeGameTwo);

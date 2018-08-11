@@ -57,6 +57,7 @@ const backButton = element.querySelector(`.back`);
 
 backButton.addEventListener(`click`, () => {
   resetGameOne();
+  resetGameTwo();
   changeScreen(greeting);
 });
 
@@ -77,10 +78,7 @@ const seeGameThree = (evt) => {
 formGameTwo.addEventListener(`click`, seeGameThree);
 
 export const resetGameTwo = () => {
-  const inputs = formGameTwo.querySelectorAll(`input`);
-  inputs.forEach((el) => {
-    el.checked = false;
-  });
+  formGameTwo.reset();
 };
 
 export default element;
