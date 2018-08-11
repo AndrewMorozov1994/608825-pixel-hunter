@@ -1,7 +1,5 @@
 import {changeScreen, render} from './utils.js';
 import greeting from './greeting.js';
-import {resetGameTwo} from './gameTwo.js';
-import {resetGameOne} from './gameOne.js';
 
 const template = `
 <header class="header">
@@ -120,8 +118,6 @@ const element = render(template);
 const backButton = element.querySelector(`.back`);
 
 backButton.addEventListener(`click`, () => {
-  resetGameOne();
-  resetGameTwo();
   changeScreen(greeting);
 });
 

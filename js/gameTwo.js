@@ -1,7 +1,6 @@
 import {changeScreen, render} from './utils.js';
 import gameThree from './gameThree.js';
 import greeting from './greeting.js';
-import {resetGameOne} from './gameOne.js';
 
 const template = `
 <header class="header">
@@ -56,7 +55,6 @@ const formGameTwo = element.querySelector(`.game__content`);
 const backButton = element.querySelector(`.back`);
 
 backButton.addEventListener(`click`, () => {
-  resetGameOne();
   resetGameTwo();
   changeScreen(greeting);
 });
@@ -68,16 +66,15 @@ const seeGameThree = (evt) => {
     if (gameAnswer === null) {
       return;
     }
+    changeScreen(gameThree);
+    resetGameTwo();
 
-    if (gameAnswer) {
-      changeScreen(gameThree);
-    }
   }, 500);
 };
 
 formGameTwo.addEventListener(`click`, seeGameThree);
 
-export const resetGameTwo = () => {
+const resetGameTwo = () => {
   formGameTwo.reset();
 };
 

@@ -76,12 +76,13 @@ const seeGameTwo = () => {
     const gameAnswers = gameOneForm.querySelectorAll(`input`);
     if ([...gameAnswers].filter((el) => el.checked).length === 2) {
       changeScreen(gameTwo);
+      resetGameOne();
     }
   }, 500);
 };
 
 // Сбрасываем чекнутые поля
-export const resetGameOne = () => {
+const resetGameOne = () => {
   gameOneForm.reset();
 };
 

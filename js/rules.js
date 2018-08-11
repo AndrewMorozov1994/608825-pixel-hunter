@@ -41,10 +41,14 @@ backButton.addEventListener(`click`, () => {
   changeScreen(greeting);
 });
 
-continueButton.disabled = true;
-
 inputName.addEventListener(`change`, () => {
-  continueButton.disabled = false;
+  let numberOfSymbols = inputName.value;
+
+  if (numberOfSymbols.length !== 0) {
+    continueButton.disabled = false;
+  } else {
+    continueButton.disabled = true;
+  }
 });
 
 continueButton.addEventListener(`click`, () => {

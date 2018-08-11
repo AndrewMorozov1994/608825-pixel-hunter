@@ -1,8 +1,6 @@
 import {changeScreen, render} from './utils.js';
 import stats from './stats.js';
 import greeting from './greeting.js';
-import {resetGameTwo} from './gameTwo.js';
-import {resetGameOne} from './gameOne.js';
 
 const template = `
 <header class="header">
@@ -54,8 +52,6 @@ const gameWrapper = element.querySelector(`.game`);
 const backButton = element.querySelector(`.back`);
 
 backButton.addEventListener(`click`, () => {
-  resetGameOne();
-  resetGameTwo();
   changeScreen(greeting);
 });
 
@@ -66,10 +62,8 @@ const seeStats = (evt) => {
     if (gameOption === null) {
       return;
     }
+    changeScreen(stats);
 
-    if (gameOption) {
-      changeScreen(stats);
-    }
   }, 500);
 };
 
