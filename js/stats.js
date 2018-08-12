@@ -1,5 +1,5 @@
-import {changeScreen, render} from './utils.js';
-import greeting from './greeting.js';
+import {render} from './utils.js';
+import {seeGreetingScreen} from './rules.js';
 
 const template = `
 <header class="header">
@@ -117,8 +117,6 @@ const template = `
 const element = render(template);
 const backButton = element.querySelector(`.back`);
 
-backButton.addEventListener(`click`, () => {
-  changeScreen(greeting);
-});
+setTimeout(() => seeGreetingScreen(backButton), 0);
 
 export default element;

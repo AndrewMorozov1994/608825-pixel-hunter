@@ -1,6 +1,6 @@
 import {changeScreen, render} from './utils.js';
 import gameThree from './gameThree.js';
-import greeting from './greeting.js';
+import {seeGreetingScreen} from './rules.js';
 
 const template = `
 <header class="header">
@@ -54,11 +54,6 @@ const element = render(template);
 const formGameTwo = element.querySelector(`.game__content`);
 const backButton = element.querySelector(`.back`);
 
-backButton.addEventListener(`click`, () => {
-  resetGameTwo();
-  changeScreen(greeting);
-});
-
 // SetTimeout временно для себя
 const seeGameThree = (evt) => {
   setTimeout(() => {
@@ -77,5 +72,7 @@ formGameTwo.addEventListener(`click`, seeGameThree);
 const resetGameTwo = () => {
   formGameTwo.reset();
 };
+
+setTimeout(() => seeGreetingScreen(backButton, resetGameTwo), 0);
 
 export default element;

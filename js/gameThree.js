@@ -1,6 +1,6 @@
 import {changeScreen, render} from './utils.js';
 import stats from './stats.js';
-import greeting from './greeting.js';
+import {seeGreetingScreen} from './rules.js';
 
 const template = `
 <header class="header">
@@ -51,10 +51,6 @@ const element = render(template);
 const gameWrapper = element.querySelector(`.game`);
 const backButton = element.querySelector(`.back`);
 
-backButton.addEventListener(`click`, () => {
-  changeScreen(greeting);
-});
-
 // SetTimeout временно для себя
 const seeStats = (evt) => {
   setTimeout(() => {
@@ -68,5 +64,7 @@ const seeStats = (evt) => {
 };
 
 gameWrapper.addEventListener(`click`, seeStats);
+
+setTimeout(() => seeGreetingScreen(backButton), 0);
 
 export default element;
