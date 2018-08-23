@@ -52,10 +52,6 @@ const calculateAnswerTimeType = (time) => {
 };
 
 const changeLevel = (countLevel) => {
-  if (countLevel <= LEVEL.INITIAL) {
-    return LEVEL.INITIAL;
-  }
-
   if (countLevel >= LEVEL.MAX) {
     return LEVEL.SPECIAL;
   }
