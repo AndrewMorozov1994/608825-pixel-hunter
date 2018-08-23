@@ -20,17 +20,17 @@ const LEVEL = {
 };
 
 // На входе текущее количсевто оставшихся попыток и тип ответа
-const calculateLifes = (lifeValue, answerType) => {
+const calculateLives = (lifeValue, answerType) => {
   const newLifeValue = lifeValue - !answerType;
   return newLifeValue;
 };
 
-const calculateScores = (answers, lifes) => {
-  if (lifes < 0) {
+const calculateScores = (answers, lives) => {
+  if (lives < 0) {
     return 0;
   }
 
-  const result = (answers.reduce((accum, item) => accum + item) + lifes) * POINT_VALUE;
+  const result = (answers.reduce((accum, item) => accum + item) + lives) * POINT_VALUE;
   return result;
 };
 
@@ -62,4 +62,4 @@ const changeLevel = (countLevel) => {
   return countLevel;
 };
 
-export {changeLevel, calculateAnswerTimeType, calculateScores, calculateLifes};
+export {changeLevel, calculateAnswerTimeType, calculateScores, calculateLives};

@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {changeLevel, calculateAnswerTimeType, calculateScores, calculateLifes} from '../gameCount.js';
+import {changeLevel, calculateAnswerTimeType, calculateScores, calculateLives} from '../gameCount.js';
 
 describe(`Results`, () => {
 
@@ -7,13 +7,13 @@ describe(`Results`, () => {
     it(`should return 350 if minimum score`, () => {
       assert.equal(calculateScores([0, 0, 0, 1, 1, 1, 1, 1, 1, 1], 0), 350);
     });
-    it(`should return 1150 if no lifes left and normal type answers`, () => {
+    it(`should return 1150 if no lives left and normal type answers`, () => {
       assert.equal(calculateScores([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], 3), 1150);
     });
     it(`should return 1650 if maximum score`, () => {
       assert.equal(calculateScores([3, 3, 3, 3, 3, 3, 3, 3, 3, 3], 3), 1650);
     });
-    it(`should return 0 if less than 0 lifes`, () => {
+    it(`should return 0 if less than 0 lives`, () => {
       assert.equal(calculateScores([3, 3, 3, 3, 3, 3, 0, 0, 0, 0], -1), 0);
     });
   });
@@ -38,18 +38,18 @@ describe(`Results`, () => {
   });
 
   describe(`Lifes count`, () => {
-    it(`should return 3 if right answer and max lifes`, () => {
-      assert.equal(calculateLifes(3, 1), 3);
+    it(`should return 3 if right answer and max lives`, () => {
+      assert.equal(calculateLives(3, 1), 3);
     });
-    it(`should return -1 if wrong answer and no lifis`, () => {
-      assert.equal(calculateLifes(0, 0), -1);
+    it(`should return -1 if wrong answer and no lives`, () => {
+      assert.equal(calculateLives(0, 0), -1);
     });
     it(`should return 3 if right fast answer and max lives`, () => {
-      assert.equal(calculateLifes(3, 3), 3);
+      assert.equal(calculateLives(3, 3), 3);
     });
 
-    it(`should return 1 if wrong answer and two lifis`, () => {
-      assert.equal(calculateLifes(2, 0), 1);
+    it(`should return 1 if wrong answer and two lives`, () => {
+      assert.equal(calculateLives(2, 0), 1);
     });
   });
 
