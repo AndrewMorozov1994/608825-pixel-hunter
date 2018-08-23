@@ -9,7 +9,6 @@
     "build": "gulp build",
     "start": "gulp serve",
     "test": "npm run eslint && gulp test"
-
   },
   "devDependencies": {
     "autoprefixer": "9.0.2",
