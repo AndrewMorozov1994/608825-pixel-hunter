@@ -16,7 +16,8 @@ const ANSWER = {
 
 const LEVEL = {
   INITIAL: 0,
-  MAX: 9
+  MAX: 9,
+  SPECIAL: -1
 };
 
 // На входе текущее количсевто оставшихся попыток и тип ответа
@@ -56,10 +57,11 @@ const changeLevel = (countLevel) => {
   }
 
   if (countLevel >= LEVEL.MAX) {
-    return LEVEL.MAX;
+    return LEVEL.SPECIAL;
   }
 
-  return countLevel;
+  return countLevel + 1;
 };
 
 export {changeLevel, calculateAnswerTimeType, calculateScores, calculateLives};
+

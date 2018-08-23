@@ -54,16 +54,16 @@ describe(`Results`, () => {
   });
 
   describe(`Game change levels`, () => {
-    it(`should return maxLevel if value >= maxLevel`, () => {
-      assert.equal(changeLevel(9), 9);
-      assert.equal(changeLevel(10), 9);
+    it(`should return specialLevel = -1 if value >= maxLevel`, () => {
+      assert.equal(changeLevel(9), -1);
+      assert.equal(changeLevel(10), -1);
     });
     it(`should return 0 if value <= minLevel`, () => {
       assert.equal(changeLevel(0), 0);
       assert.equal(changeLevel(-1), 0);
     });
-    it(`should return 3 if value is 3`, () => {
-      assert.equal(changeLevel(3), 3);
+    it(`should return 4 if value is 3`, () => {
+      assert.equal(changeLevel(3), 4);
     });
   });
 
