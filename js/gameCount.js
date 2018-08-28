@@ -16,8 +16,18 @@ const ANSWER = {
 
 const LEVEL = {
   INITIAL: 0,
-  MAX: 9,
+  MAX: 10,
   SPECIAL: -1
+};
+
+const LIVES = {
+  INITIAL: 3
+};
+
+const STATE = {
+  lives: 3,
+  answers: [],
+  currentQuestion: 0,
 };
 
 // На входе текущее количсевто оставшихся попыток и тип ответа
@@ -59,5 +69,5 @@ const changeLevel = (countLevel) => {
   return countLevel + 1;
 };
 
-export {changeLevel, calculateAnswerTimeType, calculateScores, calculateLives};
+export {LIVES, STATE, LEVEL, changeLevel, calculateAnswerTimeType, calculateScores, calculateLives};
 
