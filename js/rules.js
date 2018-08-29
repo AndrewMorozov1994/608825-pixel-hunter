@@ -2,7 +2,7 @@ import {changeScreen, render} from './utils.js';
 import greeting from './greeting.js';
 import gameOne from './gameOne.js';
 import backButtont from './tempates/backbutton.js';
-import {STATE, LEVEL} from './gameCount.js';
+import {STATE, LEVEL, INITIAL} from './gameCount.js';
 
 const template = `
 <header class="header">
@@ -48,6 +48,7 @@ export const seeGreetingScreen = (backBtn, callback) => {
     }
     changeScreen(greeting);
     STATE.currentQuestion = LEVEL.INITIAL + 1;
+    STATE.answers = INITIAL.answers;
   });
 };
 

@@ -1,3 +1,6 @@
+import {changeScreen} from './utils.js';
+import stats from './stats.js';
+
 const POINT_VALUE = 50;
 
 const ANSWER = {
@@ -23,6 +26,11 @@ const LEVEL = {
 const LIVES = {
   INITIAL: 3
 };
+const INITIAL = {
+  lives: 3,
+  answers: [],
+  currentQuestion: 0,
+};
 
 const STATE = {
   lives: 3,
@@ -33,6 +41,9 @@ const STATE = {
 // На входе текущее количсевто оставшихся попыток и тип ответа
 const calculateLives = (lifeValue, answerType) => {
   const newLifeValue = lifeValue - !answerType;
+  if (newLifeValue <= 0) {
+    changeScreen(stats);
+  }
   return newLifeValue;
 };
 
@@ -69,5 +80,5 @@ const changeLevel = (countLevel) => {
   return countLevel + 1;
 };
 
-export {LIVES, STATE, LEVEL, changeLevel, calculateAnswerTimeType, calculateScores, calculateLives};
+export {LIVES, STATE, LEVEL, INITIAL, changeLevel, calculateAnswerTimeType, calculateScores, calculateLives};
 
