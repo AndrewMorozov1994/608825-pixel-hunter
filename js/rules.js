@@ -1,8 +1,9 @@
 import {changeScreen, render} from './utils.js';
 import greeting from './greeting.js';
-import gameOne from './gameOne.js';
 import backButtont from './tempates/backbutton.js';
-import {STATE, LEVEL, INITIAL} from './gameCount.js';
+import {STATE, LEVEL, INITIAL, LIVES} from './gameCount.js';
+import renderGameScreen from './components/renderGameScreen.js';
+import {answersTextTypeInitial} from './data/data.js';
 
 const template = `
 <header class="header">
@@ -31,6 +32,8 @@ const inputName = element.querySelector(`.rules__input`);
 const continueButton = element.querySelector(`.rules__button`);
 const backButton = element.querySelector(`.back`);
 
+export const answersTextType = answersTextTypeInitial.slice();
+
 inputName.addEventListener(`change`, () => {
   let numberOfSymbols = inputName.value;
 
@@ -47,14 +50,19 @@ export const seeGreetingScreen = (backBtn, callback) => {
       callback();
     }
     changeScreen(greeting);
-    STATE.currentQuestion = LEVEL.INITIAL + 1;
-    STATE.answers = INITIAL.answers;
+    STATE.currentQuestion = LEVEL.INITIAL;
+    STATE.lives = LIVES.INITIAL;
+    STATE.answers = [];
+
+    for (let i = 0; i < answersTextTypeInitial.length; i++) {
+      answersTextType[i] = answersTextTypeInitial[i];
+    }
   });
 };
 
 seeGreetingScreen(backButton);
 continueButton.addEventListener(`click`, () => {
-  changeScreen(gameOne);
+  changeScreen(renderGameScreen(STATE));
 });
 
 export default element;

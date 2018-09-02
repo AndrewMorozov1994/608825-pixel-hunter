@@ -1,7 +1,8 @@
-import {questions, answerss} from '../data/data.js';
+import {questions} from '../data/data.js';
 import {STATE, calculateLives} from '../gameCount.js';
 import {questionTypes} from './data.js';
 import answersTypes from '../data/answersTypes.js';
+import {answersTextType} from '../rules.js';
 
 export const chooseAnswer = (evt, element) => {
   const gameTitle = element.querySelector(`.game__task`).innerHTML;
@@ -61,10 +62,12 @@ export const chooseAnswer = (evt, element) => {
         return answersTypes.CORRECT;
       case 3:
         return answersTypes.FAST;
+      default:
+        return ``;
     }
   };
 
-  answerss[STATE.currentQuestion - 1] = getTypeAnswer(STATE);
+  answersTextType[STATE.currentQuestion - 1] = getTypeAnswer(STATE);
 
   STATE.lives = calculateLives(STATE.lives, STATE.answers[STATE.answers.length - 1]);
 };

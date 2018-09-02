@@ -259,7 +259,7 @@ export const questions = [
     ]}
 ];
 
-export const answerss = [
+export const answersTextTypeInitial = [
   answersTypes.UNKNOWN,
   answersTypes.UNKNOWN,
   answersTypes.UNKNOWN,
