@@ -1,4 +1,5 @@
 import answersTypes from './data/answers-types.js';
+import {answersTextTypeInitial} from './data/data.js';
 
 const POINT_VALUE = 50;
 
@@ -31,7 +32,7 @@ const state = {
   lives: 3,
   answers: [],
   currentQuestion: 0,
-  answersTextType: new Array(10).fill(answersTypes.UNKNOWN)
+  answersTextType: answersTextTypeInitial.slice()
 };
 
 // На входе текущее количсевто оставшихся попыток и тип ответа

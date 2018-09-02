@@ -33,7 +33,6 @@ const continueButton = element.querySelector(`.rules__button`);
 const backButton = element.querySelector(`.back`);
 
 
-inputName.disabled = !name.length;
 inputName.addEventListener(`input`, () => {
   let name = inputName.value;
   continueButton.disabled = !name.length;
@@ -48,8 +47,7 @@ export const seeGreetingScreen = (backBtn, callback) => {
     state.currentQuestion = Level.INITIAL;
     state.lives = Initial.LIVES;
     state.answers = [];
-
-    state.answersTextType = answersTextTypeInitial;
+    state.answersTextType = answersTextTypeInitial.slice();
   });
 };
 
