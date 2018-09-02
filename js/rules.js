@@ -1,7 +1,7 @@
 import {changeScreen, render} from './utils.js';
 import greeting from './greeting.js';
 import backButtont from './tempates/backbutton.js';
-import {STATE, LEVEL, INITIAL, LIVES} from './gameCount.js';
+import {STATE, LEVEL, LIVES} from './gameCount.js';
 import renderGameScreen from './components/renderGameScreen.js';
 import {answersTextTypeInitial} from './data/data.js';
 

@@ -11,7 +11,7 @@ import {chooseAnswer} from '../data/answers.js';
 import renderStats from '../tempates/renderStats.js';
 
 const renderGameScreen = (state) => {
-  const {lives, currentQuestion, answers} = state;
+  const {lives, currentQuestion} = state;
   const question = questions[currentQuestion];
 
   const template = `
@@ -77,11 +77,7 @@ const renderGameScreen = (state) => {
     form.reset();
   };
 
-  console.log(STATE.currentQuestion);
   STATE.currentQuestion = changeLevel(STATE.currentQuestion);
-  console.log(answers);
-
-
 
   return element;
 };

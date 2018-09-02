@@ -50,8 +50,6 @@ const renderState = (stat) => {
   const element = render(template);
   const backButton = element.querySelector(`.back`);
 
-  console.log(stat.answers);
-
   setTimeout(() => seeGreetingScreen(backButton), 0);
 
   return element;
