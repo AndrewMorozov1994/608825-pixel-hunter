@@ -16,7 +16,7 @@ const ANSWER = {
 
 const LEVEL = {
   INITIAL: 0,
-  MAX: 10,
+  MAX: 9,
   SPECIAL: -1
 };
 
