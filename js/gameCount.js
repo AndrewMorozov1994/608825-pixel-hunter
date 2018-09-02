@@ -16,7 +16,7 @@ const ANSWER = {
 
 const LEVEL = {
   INITIAL: 0,
-  MAX: 9,
+  MAX: 10,
   SPECIAL: -1
 };
 
@@ -66,10 +66,6 @@ const calculateAnswerTimeType = (time) => {
 };
 
 const changeLevel = (countLevel) => {
-  if (countLevel >= LEVEL.MAX) {
-    return LEVEL.SPECIAL;
-  }
-
   return countLevel + 1;
 };
 

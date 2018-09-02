@@ -54,10 +54,6 @@ describe(`Results`, () => {
   });
 
   describe(`Game change levels`, () => {
-    it(`should return specialLevel = -1 if value >= maxLevel`, () => {
-      assert.equal(changeLevel(9), -1);
-      assert.equal(changeLevel(10), -1);
-    });
     it(`should return 1 if value is 0`, () => {
       assert.equal(changeLevel(0), 1);
     });
