@@ -1,4 +1,4 @@
-import {questions, answersTextTypeInitial} from '../data/data.js';
+import {questions} from '../data/data.js';
 import renderHeader from '../tempates/render-header.js';
 import renderQuestion from '../tempates/render-question.js';
 import {render} from '../utils.js';
@@ -76,8 +76,6 @@ const renderGameScreen = (stat) => {
   const resetGame = () => {
     form.reset();
   };
-console.log(answersTextType);
-console.log(answersTextTypeInitial);
   state.currentQuestion = changeLevel(state.currentQuestion);
 
   return element;

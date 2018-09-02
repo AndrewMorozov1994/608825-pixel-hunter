@@ -1,4 +1,3 @@
-import answersTypes from './data/answers-types.js';
 import {answersTextTypeInitial} from './data/data.js';
 
 const POINT_VALUE = 50;
