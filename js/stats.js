@@ -18,7 +18,7 @@ const renderState = (stat) => {
           ${renderStats(answersTextType)}
         </td>
         <td class="result__points">× 100</td>
-        <td class="result__total">${calculateScores(stat.answers, stat.lives)}</td>
+        <td class="result__total">${calculateScores(stat.answers, stat.lives) - stat.lives * 50}</td>
       </tr>
       <tr>
         <td></td>
