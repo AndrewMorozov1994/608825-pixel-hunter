@@ -1,18 +1,13 @@
 import {changeScreen, render} from './utils.js';
 import greeting from './greeting.js';
-import gameOne from './gameOne.js';
+import backButtonTemplate from './tempates/backbutton.js';
+import {state, Level, Initial} from './game-count.js';
+import renderGameScreen from './components/render-game-screen.js';
+import {answersTextTypeInitial} from './data/data.js';
 
 const template = `
 <header class="header">
-    <button class="back">
-      <span class="visually-hidden">Вернуться к началу</span>
-      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-        <use xlink:href="img/sprite.svg#arrow-left"></use>
-      </svg>
-      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-        <use xlink:href="img/sprite.svg#logo-small"></use>
-      </svg>
-    </button>
+    ${backButtonTemplate}
   </header>
   <section class="rules">
     <h2 class="rules__title">Правила</h2>
@@ -37,14 +32,10 @@ const inputName = element.querySelector(`.rules__input`);
 const continueButton = element.querySelector(`.rules__button`);
 const backButton = element.querySelector(`.back`);
 
-inputName.addEventListener(`change`, () => {
-  let numberOfSymbols = inputName.value;
 
-  if (numberOfSymbols.length !== 0) {
-    continueButton.disabled = false;
-  } else {
-    continueButton.disabled = true;
-  }
+inputName.addEventListener(`input`, () => {
+  let name = inputName.value;
+  continueButton.disabled = !name.length;
 });
 
 export const seeGreetingScreen = (backBtn, callback) => {
@@ -53,12 +44,16 @@ export const seeGreetingScreen = (backBtn, callback) => {
       callback();
     }
     changeScreen(greeting);
+    state.currentQuestion = Level.INITIAL;
+    state.lives = Initial.LIVES;
+    state.answers = [];
+    state.answersTextType = answersTextTypeInitial.slice();
   });
 };
 
 seeGreetingScreen(backButton);
 continueButton.addEventListener(`click`, () => {
-  changeScreen(gameOne);
+  changeScreen(renderGameScreen(state));
 });
 
 export default element;

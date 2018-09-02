@@ -1,39 +1,25 @@
 import {render} from './utils.js';
 import {seeGreetingScreen} from './rules.js';
+import backButtonTemplate from './tempates/backbutton.js';
+import renderStats from './tempates/render-stats.js';
+import {calculateScores} from './game-count.js';
 
-const template = `
+
+const renderState = (stat) => {
+  const template = `
 <header class="header">
-    <button class="back">
-      <span class="visually-hidden">Вернуться к началу</span>
-      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-        <use xlink:href="img/sprite.svg#arrow-left"></use>
-      </svg>
-      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-        <use xlink:href="img/sprite.svg#logo-small"></use>
-      </svg>
-    </button>
+  ${backButtonTemplate}
   </header>
   <section class="result">
-    <h2 class="result__title">Победа!</h2>
+    <h2 class="result__title">${stat.lives >= 0 ? `Победа!` : `Поражение`}</h2>
     <table class="result__table">
       <tr>
-        <td class="result__number">1.</td>
+        <td class="result__number"></td>
         <td colspan="2">
-          <ul class="stats">
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--correct"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--unknown"></li>
-          </ul>
+          ${renderStats(stat.answersTextType)}
         </td>
         <td class="result__points">× 100</td>
-        <td class="result__total">900</td>
+        <td class="result__total">${calculateScores(stat.answers, stat.lives) - stat.lives * 50}</td>
       </tr>
       <tr>
         <td></td>
@@ -44,10 +30,10 @@ const template = `
       </tr>
       <tr>
         <td></td>
-        <td class="result__extra">Бонус за жизни:</td>
-        <td class="result__extra">2 <span class="stats__result stats__result--alive"></span></td>
+        ${stat.lives >= 0 ? `<td class="result__extra">Бонус за жизни:</td>
+        <td class="result__extra">${stat.lives} <span class="stats__result stats__result--alive"></span></td>
         <td class="result__points">× 50</td>
-        <td class="result__total">100</td>
+        <td class="result__total">${stat.lives * 50}</td>` : ``}
       </tr>
       <tr>
         <td></td>
@@ -57,66 +43,17 @@ const template = `
         <td class="result__total">-100</td>
       </tr>
       <tr>
-        <td colspan="5" class="result__total  result__total--final">950</td>
-      </tr>
-    </table>
-    <table class="result__table">
-      <tr>
-        <td class="result__number">2.</td>
-        <td>
-          <ul class="stats">
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--correct"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--wrong"></li>
-          </ul>
-        </td>
-        <td class="result__total"></td>
-        <td class="result__total  result__total--final">fail</td>
-      </tr>
-    </table>
-    <table class="result__table">
-      <tr>
-        <td class="result__number">3.</td>
-        <td colspan="2">
-          <ul class="stats">
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--correct"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--unknown"></li>
-          </ul>
-        </td>
-        <td class="result__points">× 100</td>
-        <td class="result__total">900</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="result__extra">Бонус за жизни:</td>
-        <td class="result__extra">2 <span class="stats__result stats__result--alive"></span></td>
-        <td class="result__points">× 50</td>
-        <td class="result__total">100</td>
-      </tr>
-      <tr>
-        <td colspan="5" class="result__total  result__total--final">950</td>
+        <td colspan="5" class="result__total  result__total--final">${stat.lives >= 0 ? calculateScores(stat.answers, stat.lives) : `fail`}</td>
       </tr>
     </table>
   </section>`;
 
-const element = render(template);
-const backButton = element.querySelector(`.back`);
+  const element = render(template);
+  const backButton = element.querySelector(`.back`);
 
-setTimeout(() => seeGreetingScreen(backButton), 0);
+  setTimeout(() => seeGreetingScreen(backButton), 0);
 
-export default element;
+  return element;
+};
+
+export default renderState;

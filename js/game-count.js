@@ -1,6 +1,8 @@
+import {answersTextTypeInitial} from './data/data.js';
+
 const POINT_VALUE = 50;
 
-const ANSWER = {
+const Answer = {
   timeType: {
     WRONG: 0,
     SLOW: 1,
@@ -14,10 +16,22 @@ const ANSWER = {
   }
 };
 
-const LEVEL = {
+const Level = {
   INITIAL: 0,
-  MAX: 9,
+  MAX: 10,
   SPECIAL: -1
+};
+
+const Initial = {
+  LIVES: 3,
+  CURRENT_QUESTION: 0,
+};
+
+const state = {
+  lives: 3,
+  answers: [],
+  currentQuestion: 0,
+  answersTextType: answersTextTypeInitial.slice()
 };
 
 // На входе текущее количсевто оставшихся попыток и тип ответа
@@ -36,28 +50,24 @@ const calculateScores = (answers, lives) => {
 };
 
 const calculateAnswerTimeType = (time) => {
-  if (time <= ANSWER.timing.WRONG) {
-    return ANSWER.timeType.WRONG;
+  if (time <= Answer.timing.WRONG) {
+    return Answer.timeType.WRONG;
   }
 
-  if (time < ANSWER.timing.SLOW) {
-    return ANSWER.timeType.SLOW;
+  if (time < Answer.timing.SLOW) {
+    return Answer.timeType.SLOW;
   }
 
-  if (time <= ANSWER.timing.NORMAL) {
-    return ANSWER.timeType.NORMAL;
+  if (time <= Answer.timing.NORMAL) {
+    return Answer.timeType.NORMAL;
   }
 
-  return ANSWER.timeType.FAST;
+  return Answer.timeType.FAST;
 };
 
 const changeLevel = (countLevel) => {
-  if (countLevel >= LEVEL.MAX) {
-    return LEVEL.SPECIAL;
-  }
-
   return countLevel + 1;
 };
 
-export {changeLevel, calculateAnswerTimeType, calculateScores, calculateLives};
+export {state, Level, Initial, changeLevel, calculateAnswerTimeType, calculateScores, calculateLives};
 
