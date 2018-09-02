@@ -34,7 +34,7 @@ const backButton = element.querySelector(`.back`);
 
 export const answersTextType = answersTextTypeInitial.slice();
 
-inputName.addEventListener(`change`, () => {
+inputName.addEventListener(`input`, () => {
   let numberOfSymbols = inputName.value;
 
   if (numberOfSymbols.length !== 0) {

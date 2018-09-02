@@ -7,7 +7,7 @@ import {calculateScores} from './gameCount.js';
 const renderState = (stat) => {
   const template = `
 <header class="header">
-  ${button};
+  ${button}
   </header>
   <section class="result">
     <h2 class="result__title">${stat.lives >= 0 ? `Победа!` : `Поражение`}</h2>
