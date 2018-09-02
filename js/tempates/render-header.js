@@ -1,8 +1,8 @@
-import backButtont from './backbutton.js';
+import backButtonTemplate from './backbutton.js';
 
-const func = (lives) => {
+const renderHeader = (lives) => {
   const template = `<header class="header">
-  ${backButtont}
+  ${backButtonTemplate}
   <div class="game__timer">NN</div>
   <div class="game__lives">
   ${new Array(3 - lives)
@@ -16,4 +16,4 @@ const func = (lives) => {
   return template;
 };
 
-export default func;
+export default renderHeader;

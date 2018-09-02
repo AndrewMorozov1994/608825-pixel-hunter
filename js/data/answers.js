@@ -1,28 +1,30 @@
 import {questions} from '../data/data.js';
-import {STATE, calculateLives} from '../gameCount.js';
+import {state, calculateLives} from '../game-count.js';
 import {questionTypes} from './data.js';
-import answersTypes from '../data/answersTypes.js';
-import {answersTextType} from '../rules.js';
+import answersTypes from './answers-types.js';
+
+const WRONG = 0;
+const CORRECT = 2;
 
 export const chooseAnswer = (evt, element) => {
   const gameTitle = element.querySelector(`.game__task`).innerHTML;
 
   switch (gameTitle) {
     case questionTypes.TWO_IMG:
-      const quest = questions[STATE.currentQuestion - 1];
+      const quest = questions[state.currentQuestion - 1];
       const labelOptions = element.querySelectorAll(`input:checked`);
 
       if (labelOptions[0].value === quest.options[0].type && labelOptions[1].value === quest.options[1].type) {
-        STATE.answers.push(2);
+        state.answers.push(CORRECT);
       } else {
-        STATE.answers.push(0);
+        state.answers.push(WRONG);
       }
 
       break;
 
     case questionTypes.PHOTO_OR_PAINT:
 
-      const question = questions[STATE.currentQuestion - 1];
+      const question = questions[state.currentQuestion - 1];
       const label = evt.target.closest(`.game__answer`);
       if (label === null) {
         return;
@@ -30,9 +32,9 @@ export const chooseAnswer = (evt, element) => {
       const input = label.querySelector(`input`);
 
       if (input.value === question.option.type) {
-        STATE.answers.push(2);
+        state.answers.push(CORRECT);
       } else {
-        STATE.answers.push(0);
+        state.answers.push(WRONG);
       }
 
       break;
@@ -45,15 +47,15 @@ export const chooseAnswer = (evt, element) => {
         return;
       }
       if (labelOp.classList.contains(`game__option--selected`)) {
-        STATE.answers.push(2);
+        state.answers.push(CORRECT);
       } else {
-        STATE.answers.push(0);
+        state.answers.push(WRONG);
       }
       break;
   }
 
-  const getTypeAnswer = (state) => {
-    switch (state.answers[state.answers.length - 1]) {
+  const getTypeAnswer = (stat) => {
+    switch (stat.answers[stat.answers.length - 1]) {
       case 0:
         return answersTypes.WRONG;
       case 1:
@@ -67,7 +69,7 @@ export const chooseAnswer = (evt, element) => {
     }
   };
 
-  answersTextType[STATE.currentQuestion - 1] = getTypeAnswer(STATE);
+  state.answersTextType[state.currentQuestion - 1] = getTypeAnswer(state);
 
-  STATE.lives = calculateLives(STATE.lives, STATE.answers[STATE.answers.length - 1]);
+  state.lives = calculateLives(state.lives, state.answers[state.answers.length - 1]);
 };

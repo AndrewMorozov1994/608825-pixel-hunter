@@ -1,17 +1,17 @@
-import {questions} from '../data/data.js';
-import renderHeader from '../tempates/renderHeader.js';
-import renderQuestion from '../tempates/renderQuestion.js';
+import {questions, answersTextTypeInitial} from '../data/data.js';
+import renderHeader from '../tempates/render-header.js';
+import renderQuestion from '../tempates/render-question.js';
 import {render} from '../utils.js';
 import {questionTypes} from '../data/data.js';
 import {changeScreen} from '../utils.js';
-import {STATE, changeLevel} from '../gameCount.js';
-import {seeGreetingScreen, answersTextType} from '../rules.js';
+import {state, changeLevel} from '../game-count.js';
+import {seeGreetingScreen} from '../rules.js';
 import stats from '../stats.js';
 import {chooseAnswer} from '../data/answers.js';
-import renderStats from '../tempates/renderStats.js';
+import renderStats from '../tempates/render-stats.js';
 
-const renderGameScreen = (state) => {
-  const {lives, currentQuestion} = state;
+const renderGameScreen = (stat) => {
+  const {lives, currentQuestion, answersTextType} = stat;
   const question = questions[currentQuestion];
 
   const template = `
@@ -62,10 +62,10 @@ const renderGameScreen = (state) => {
   }
 
   const seeNextSlide = () => {
-    if (STATE.lives >= 0 && STATE.currentQuestion <= 9) {
-      changeScreen(renderGameScreen(STATE));
+    if (state.lives >= 0 && state.currentQuestion <= 9) {
+      changeScreen(renderGameScreen(state));
     } else {
-      changeScreen(stats(STATE));
+      changeScreen(stats(state));
     }
     resetGame();
   };
@@ -76,8 +76,9 @@ const renderGameScreen = (state) => {
   const resetGame = () => {
     form.reset();
   };
-
-  STATE.currentQuestion = changeLevel(STATE.currentQuestion);
+console.log(answersTextType);
+console.log(answersTextTypeInitial);
+  state.currentQuestion = changeLevel(state.currentQuestion);
 
   return element;
 };

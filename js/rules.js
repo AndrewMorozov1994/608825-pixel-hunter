@@ -1,13 +1,13 @@
 import {changeScreen, render} from './utils.js';
 import greeting from './greeting.js';
-import backButtont from './tempates/backbutton.js';
-import {STATE, LEVEL, LIVES} from './gameCount.js';
-import renderGameScreen from './components/renderGameScreen.js';
+import backButtonTemplate from './tempates/backbutton.js';
+import {state, Level, Initial} from './game-count.js';
+import renderGameScreen from './components/render-game-screen.js';
 import {answersTextTypeInitial} from './data/data.js';
 
 const template = `
 <header class="header">
-    ${backButtont}
+    ${backButtonTemplate}
   </header>
   <section class="rules">
     <h2 class="rules__title">Правила</h2>
@@ -32,16 +32,11 @@ const inputName = element.querySelector(`.rules__input`);
 const continueButton = element.querySelector(`.rules__button`);
 const backButton = element.querySelector(`.back`);
 
-export const answersTextType = answersTextTypeInitial.slice();
 
+inputName.disabled = !name.length;
 inputName.addEventListener(`input`, () => {
-  let numberOfSymbols = inputName.value;
-
-  if (numberOfSymbols.length !== 0) {
-    continueButton.disabled = false;
-  } else {
-    continueButton.disabled = true;
-  }
+  let name = inputName.value;
+  continueButton.disabled = !name.length;
 });
 
 export const seeGreetingScreen = (backBtn, callback) => {
@@ -50,19 +45,17 @@ export const seeGreetingScreen = (backBtn, callback) => {
       callback();
     }
     changeScreen(greeting);
-    STATE.currentQuestion = LEVEL.INITIAL;
-    STATE.lives = LIVES.INITIAL;
-    STATE.answers = [];
+    state.currentQuestion = Level.INITIAL;
+    state.lives = Initial.LIVES;
+    state.answers = [];
 
-    for (let i = 0; i < answersTextTypeInitial.length; i++) {
-      answersTextType[i] = answersTextTypeInitial[i];
-    }
+    state.answersTextType = answersTextTypeInitial;
   });
 };
 
 seeGreetingScreen(backButton);
 continueButton.addEventListener(`click`, () => {
-  changeScreen(renderGameScreen(STATE));
+  changeScreen(renderGameScreen(state));
 });
 
 export default element;

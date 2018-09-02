@@ -1,8 +1,8 @@
 import {questionTypes} from '../data/data.js';
-import renderOption from './renderOption.js';
-import renderOptionSelect from './renderOptionSelect.js';
+import renderOption from './render-option.js';
+import renderOptionSelect from './render-option-select.js';
 
-const func = (question) => {
+const renderQuestion = (question) => {
   switch (question.type) {
     case questionTypes.TWO_IMG:
       return `
@@ -30,4 +30,4 @@ const func = (question) => {
   }
 };
 
-export default func;
+export default renderQuestion;

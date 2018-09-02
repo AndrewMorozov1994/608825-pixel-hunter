@@ -1,4 +1,4 @@
-import answersTypes from './answersTypes.js';
+import answersTypes from './answers-types.js';
 
 export const questionTypes = {
   TWO_IMG: `Угадайте для каждого изображения фото или рисунок?`,
@@ -259,15 +259,4 @@ export const questions = [
     ]}
 ];
 
-export const answersTextTypeInitial = [
-  answersTypes.UNKNOWN,
-  answersTypes.UNKNOWN,
-  answersTypes.UNKNOWN,
-  answersTypes.UNKNOWN,
-  answersTypes.UNKNOWN,
-  answersTypes.UNKNOWN,
-  answersTypes.UNKNOWN,
-  answersTypes.UNKNOWN,
-  answersTypes.UNKNOWN,
-  answersTypes.UNKNOWN
-];
+export const answersTextTypeInitial = new Array(10).fill(answersTypes.UNKNOWN);

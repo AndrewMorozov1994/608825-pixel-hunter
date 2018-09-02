@@ -1,21 +1,22 @@
 import {render} from './utils.js';
-import {seeGreetingScreen, answersTextType} from './rules.js';
-import button from './tempates/backbutton.js';
-import renderStats from './tempates/renderStats.js';
-import {calculateScores} from './gameCount.js';
+import {seeGreetingScreen} from './rules.js';
+import backButtonTemplate from './tempates/backbutton.js';
+import renderStats from './tempates/render-stats.js';
+import {calculateScores} from './game-count.js';
+
 
 const renderState = (stat) => {
   const template = `
 <header class="header">
-  ${button}
+  ${backButtonTemplate}
   </header>
   <section class="result">
     <h2 class="result__title">${stat.lives >= 0 ? `Победа!` : `Поражение`}</h2>
     <table class="result__table">
       <tr>
-        <td class="result__number">1.</td>
+        <td class="result__number"></td>
         <td colspan="2">
-          ${renderStats(answersTextType)}
+          ${renderStats(stat.answersTextType)}
         </td>
         <td class="result__points">× 100</td>
         <td class="result__total">${calculateScores(stat.answers, stat.lives) - stat.lives * 50}</td>

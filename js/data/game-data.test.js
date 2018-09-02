@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {changeLevel, calculateAnswerTimeType, calculateScores, calculateLives} from '../gameCount.js';
+import {changeLevel, calculateAnswerTimeType, calculateScores, calculateLives} from '../game-count.js';
 
 describe(`Results`, () => {
 
