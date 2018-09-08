@@ -1,6 +1,5 @@
 import {changeScreen} from './utils.js';
 import greeting from './greeting.js';
-// import backButtonTemplate from './tempates/backbutton.js';
 import {state, Level, Initial} from './game-count.js';
 import renderGameScreen from './components/render-game-screen.js';
 import {answersTextTypeInitial} from './data/data.js';
@@ -15,21 +14,13 @@ export default () => {
   return rulesScreen.element;
 };
 
-
-export const seeGreetingScreen = (backBtn, callback) => {
-  backBtn.addEventListener(`click`, ()=> {
-    if (callback) {
-      callback();
-    }
-    changeScreen(greeting);
-    state.currentQuestion = Level.INITIAL;
-    state.lives = Initial.LIVES;
-    state.answers = [];
-    state.answersTextType = answersTextTypeInitial.slice();
-  });
+export const seeGreetingScreen = (callback) => {
+  if (callback) {
+    callback();
+  }
+  changeScreen(greeting);
+  state.currentQuestion = Level.INITIAL;
+  state.lives = Initial.LIVES;
+  state.answers = [];
+  state.answersTextType = answersTextTypeInitial.slice();
 };
-
-// seeGreetingScreen(backButton);
-// continueButton.addEventListener(`click`, () => {
-//   changeScreen(renderGameScreen(state));
-// });

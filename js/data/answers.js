@@ -1,18 +1,21 @@
 import {questions} from '../data/data.js';
 import {state, calculateLives, changeLevel} from '../game-count.js';
-import {questionTypes} from './data.js';
 import answersTypes from './answers-types.js';
 
 const WRONG = 0;
 const CORRECT = 2;
 
-export const chooseAnswer = (evt, element) => {
-  const gameTitle = element.querySelector(`.game__task`).innerHTML;
+const AnswersText = {
+  TWO_IMG: `Угадайте для каждого изображения фото или рисунок?`,
+  PHOTO_OR_PAINT: `Угадай, фото или рисунок?`,
+  FIND_PAINT: `Найдите рисунок среди изображений?`
+};
 
-  switch (gameTitle) {
-    case questionTypes.TWO_IMG:
+export const chooseAnswer = (evt, element) => {
+
+  switch (questions[state.currentQuestion].type) {
+    case AnswersText.TWO_IMG:
       const quest = questions[state.currentQuestion];
-      console.log(quest);
       const labelOptions = element.querySelectorAll(`input:checked`);
 
       if (labelOptions[0].value === quest.options[0].type && labelOptions[1].value === quest.options[1].type) {
@@ -23,7 +26,7 @@ export const chooseAnswer = (evt, element) => {
 
       break;
 
-    case questionTypes.PHOTO_OR_PAINT:
+    case AnswersText.PHOTO_OR_PAINT:
 
       const question = questions[state.currentQuestion];
       const label = evt.target.closest(`.game__answer`);
@@ -41,7 +44,7 @@ export const chooseAnswer = (evt, element) => {
       break;
       // Найти Изображение
 
-    case questionTypes.FIND_PAINT:
+    case AnswersText.FIND_PAINT:
 
       const labelOp = evt.target.closest(`.game__option`);
       if (labelOp === null) {
