@@ -29,7 +29,7 @@ const element = render(template);
 const rightArrow = element.querySelector(`.greeting__continue`);
 
 rightArrow.addEventListener(`click`, () => {
-  changeScreen(rules);
+  changeScreen(rules());
 });
 
 export default element;

@@ -1,17 +1,20 @@
 import {questions} from '../data/data.js';
-import {state, calculateLives} from '../game-count.js';
-import {questionTypes} from './data.js';
-import answersTypes from './answers-types.js';
+import {state} from '../game-count.js';
 
 const WRONG = 0;
 const CORRECT = 2;
 
-export const chooseAnswer = (evt, element) => {
-  const gameTitle = element.querySelector(`.game__task`).innerHTML;
+const AnswersText = {
+  TWO_IMG: `Угадайте для каждого изображения фото или рисунок?`,
+  PHOTO_OR_PAINT: `Угадай, фото или рисунок?`,
+  FIND_PAINT: `Найдите рисунок среди изображений?`
+};
 
-  switch (gameTitle) {
-    case questionTypes.TWO_IMG:
-      const quest = questions[state.currentQuestion - 1];
+export const chooseAnswer = (evt, element) => {
+
+  switch (questions[state.currentQuestion].type) {
+    case AnswersText.TWO_IMG:
+      const quest = questions[state.currentQuestion];
       const labelOptions = element.querySelectorAll(`input:checked`);
 
       if (labelOptions[0].value === quest.options[0].type && labelOptions[1].value === quest.options[1].type) {
@@ -22,9 +25,9 @@ export const chooseAnswer = (evt, element) => {
 
       break;
 
-    case questionTypes.PHOTO_OR_PAINT:
+    case AnswersText.PHOTO_OR_PAINT:
 
-      const question = questions[state.currentQuestion - 1];
+      const question = questions[state.currentQuestion];
       const label = evt.target.closest(`.game__answer`);
       if (label === null) {
         return;
@@ -40,7 +43,7 @@ export const chooseAnswer = (evt, element) => {
       break;
       // Найти Изображение
 
-    case questionTypes.FIND_PAINT:
+    case AnswersText.FIND_PAINT:
 
       const labelOp = evt.target.closest(`.game__option`);
       if (labelOp === null) {
@@ -53,23 +56,4 @@ export const chooseAnswer = (evt, element) => {
       }
       break;
   }
-
-  const getTypeAnswer = (stat) => {
-    switch (stat.answers[stat.answers.length - 1]) {
-      case 0:
-        return answersTypes.WRONG;
-      case 1:
-        return answersTypes.SLOW;
-      case 2:
-        return answersTypes.CORRECT;
-      case 3:
-        return answersTypes.FAST;
-      default:
-        return ``;
-    }
-  };
-
-  state.answersTextType[state.currentQuestion - 1] = getTypeAnswer(state);
-
-  state.lives = calculateLives(state.lives, state.answers[state.answers.length - 1]);
 };

@@ -1,84 +1,50 @@
-import {questions} from '../data/data.js';
-import renderHeader from '../tempates/render-header.js';
-import renderQuestion from '../tempates/render-question.js';
-import {render} from '../utils.js';
-import {questionTypes} from '../data/data.js';
 import {changeScreen} from '../utils.js';
-import {state, changeLevel} from '../game-count.js';
 import {seeGreetingScreen} from '../rules.js';
 import stats from '../stats.js';
-import {chooseAnswer} from '../data/answers.js';
-import renderStats from '../tempates/render-stats.js';
+import GameView from '../view/game-screen-view.js';
+import answersTypes from '../data/answers-types.js';
+import {calculateLives, changeLevel} from '../game-count.js';
 
-const renderGameScreen = (stat) => {
-  const {lives, currentQuestion, answersTextType} = stat;
-  const question = questions[currentQuestion];
+const updateGame = (stat) => {
+  const gameView = new GameView(stat);
+  const form = gameView.element.querySelector(`form`);
+  const resetGame = () => {
+    form.reset();
+  };
+  const getTypeAnswer = (st) => {
+    switch (st.answers[st.answers.length - 1]) {
+      case 0:
+        return answersTypes.WRONG;
+      case 1:
+        return answersTypes.SLOW;
+      case 2:
+        return answersTypes.CORRECT;
+      case 3:
+        return answersTypes.FAST;
+      default:
+        return ``;
+    }
+  };
 
-  const template = `
-  ${renderHeader(lives)}
-  <section class="game">
-    ${renderQuestion(question)}
-        ${renderStats(answersTextType)}
-      </section>
-  `;
+  gameView.onAnswer = () => {
+    stat.answersTextType[stat.currentQuestion] = getTypeAnswer(stat);
 
-  const element = render(template);
+    stat.lives = calculateLives(stat.lives, stat.answers[stat.answers.length - 1]);
+    stat.currentQuestion = changeLevel(stat.currentQuestion);
 
-  const gameTitle = element.querySelector(`.game__task`).innerHTML;
-  const form = element.querySelector(`form`);
-  const gameAnswers = element.querySelectorAll(`input`);
-
-  switch (gameTitle) {
-
-    case questionTypes.TWO_IMG:
-      const seeGameTwo = (evt) => {
-        if ([...gameAnswers].filter((el) => el.checked).length === 2) {
-          chooseAnswer(evt, element);
-          seeNextSlide();
-        }
-      };
-      form.addEventListener(`click`, seeGameTwo);
-      break;
-
-    case questionTypes.PHOTO_OR_PAINT:
-      for (let i = 0; i < gameAnswers.length; i++) {
-        gameAnswers[i].addEventListener(`click`, (evt) => {
-          chooseAnswer(evt, element);
-          seeNextSlide();
-        });
-      }
-      break;
-
-    case questionTypes.FIND_PAINT:
-      for (let i = 0; i < gameAnswers.length; i++) {
-        gameAnswers[i].addEventListener(`click`, (evt) => {
-          chooseAnswer(evt, element);
-          seeNextSlide();
-        });
-      }
-      break;
-    default:
-      return ``;
-  }
-
-  const seeNextSlide = () => {
-    if (state.lives >= 0 && state.currentQuestion <= 9) {
-      changeScreen(renderGameScreen(state));
+    if (stat.lives >= 0 && stat.currentQuestion <= 9) {
+      changeScreen(updateGame(stat));
     } else {
-      changeScreen(stats(state));
+      changeScreen(stats(stat));
     }
     resetGame();
   };
 
-  const backButton = element.querySelector(`.back`);
-  setTimeout(() => seeGreetingScreen(backButton), 0);
-
-  const resetGame = () => {
-    form.reset();
+  gameView.onBack = () => {
+    seeGreetingScreen();
   };
-  state.currentQuestion = changeLevel(state.currentQuestion);
 
-  return element;
+  return gameView.element;
 };
 
-export default renderGameScreen;
+export default updateGame;
