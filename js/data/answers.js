@@ -1,6 +1,5 @@
 import {questions} from '../data/data.js';
-import {state, calculateLives, changeLevel} from '../game-count.js';
-import answersTypes from './answers-types.js';
+import {state} from '../game-count.js';
 
 const WRONG = 0;
 const CORRECT = 2;
@@ -57,24 +56,4 @@ export const chooseAnswer = (evt, element) => {
       }
       break;
   }
-
-  const getTypeAnswer = (stat) => {
-    switch (stat.answers[stat.answers.length - 1]) {
-      case 0:
-        return answersTypes.WRONG;
-      case 1:
-        return answersTypes.SLOW;
-      case 2:
-        return answersTypes.CORRECT;
-      case 3:
-        return answersTypes.FAST;
-      default:
-        return ``;
-    }
-  };
-
-  state.answersTextType[state.currentQuestion] = getTypeAnswer(state);
-
-  state.lives = calculateLives(state.lives, state.answers[state.answers.length - 1]);
-  state.currentQuestion = changeLevel(state.currentQuestion);
 };
