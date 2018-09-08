@@ -1,5 +1,5 @@
 import {questions} from '../data/data.js';
-import {state, calculateLives} from '../game-count.js';
+import {state, calculateLives, changeLevel} from '../game-count.js';
 import {questionTypes} from './data.js';
 import answersTypes from './answers-types.js';
 
@@ -11,7 +11,8 @@ export const chooseAnswer = (evt, element) => {
 
   switch (gameTitle) {
     case questionTypes.TWO_IMG:
-      const quest = questions[state.currentQuestion - 1];
+      const quest = questions[state.currentQuestion];
+      console.log(quest);
       const labelOptions = element.querySelectorAll(`input:checked`);
 
       if (labelOptions[0].value === quest.options[0].type && labelOptions[1].value === quest.options[1].type) {
@@ -24,7 +25,7 @@ export const chooseAnswer = (evt, element) => {
 
     case questionTypes.PHOTO_OR_PAINT:
 
-      const question = questions[state.currentQuestion - 1];
+      const question = questions[state.currentQuestion];
       const label = evt.target.closest(`.game__answer`);
       if (label === null) {
         return;
@@ -69,7 +70,8 @@ export const chooseAnswer = (evt, element) => {
     }
   };
 
-  state.answersTextType[state.currentQuestion - 1] = getTypeAnswer(state);
+  state.answersTextType[state.currentQuestion] = getTypeAnswer(state);
 
   state.lives = calculateLives(state.lives, state.answers[state.answers.length - 1]);
+  state.currentQuestion = changeLevel(state.currentQuestion);
 };

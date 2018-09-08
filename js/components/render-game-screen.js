@@ -4,7 +4,7 @@
 // import {render} from '../utils.js';
 // import {questionTypes} from '../data/data.js';
 import {changeScreen} from '../utils.js';
-import {state, changeLevel} from '../game-count.js';
+import {state} from '../game-count.js';
 // import {seeGreetingScreen} from '../rules.js';
 import stats from '../stats.js';
 // import {chooseAnswer} from '../data/answers.js';
@@ -25,7 +25,6 @@ const updateGame = (stat) => {
   // const resetGame = () => {
   //   form.reset();
   // };
-  state.currentQuestion = changeLevel(state.currentQuestion);
 
   return gameView.element;
 };
