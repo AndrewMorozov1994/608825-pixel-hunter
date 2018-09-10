@@ -1,9 +1,9 @@
 import {changeScreen} from '../utils.js';
-import {seeGreetingScreen} from '../rules.js';
-import stats from '../stats.js';
+import {seeGreetingScreen} from './rules.js';
 import GameView from '../view/game-screen-view.js';
 import answersTypes from '../data/answers-types.js';
 import {calculateLives, changeLevel} from '../game-count.js';
+import Router from '../application.js';
 
 const updateGame = (stat) => {
   const gameView = new GameView(stat);
@@ -35,7 +35,7 @@ const updateGame = (stat) => {
     if (stat.lives >= 0 && stat.currentQuestion <= 9) {
       changeScreen(updateGame(stat));
     } else {
-      changeScreen(stats(stat));
+      Router.showStats(stat);
     }
     resetGame();
   };

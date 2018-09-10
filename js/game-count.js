@@ -27,6 +27,11 @@ const Initial = {
   CURRENT_QUESTION: 0,
 };
 
+const Timer = {
+  INITIAL: 30,
+  LEFT: 0
+};
+
 const state = {
   lives: 3,
   answers: [],
@@ -69,5 +74,5 @@ const changeLevel = (countLevel) => {
   return countLevel + 1;
 };
 
-export {state, Level, Initial, changeLevel, calculateAnswerTimeType, calculateScores, calculateLives};
+export {state, Level, Initial, Timer, changeLevel, calculateAnswerTimeType, calculateScores, calculateLives};
 
