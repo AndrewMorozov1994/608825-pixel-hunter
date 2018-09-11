@@ -2,7 +2,7 @@ import {questions} from '../data/data.js';
 import {state} from '../game-count.js';
 
 const WRONG = 0;
-const CORRECT = 2;
+const CORRECT = 1;
 
 const AnswersText = {
   TWO_IMG: `Угадайте для каждого изображения фото или рисунок?`,
@@ -10,11 +10,11 @@ const AnswersText = {
   FIND_PAINT: `Найдите рисунок среди изображений?`
 };
 
-export const chooseAnswer = (evt, element) => {
+export const chooseAnswer = (evt, element, stat) => {
 
-  switch (questions[state.currentQuestion].type) {
+  switch (questions[stat.currentQuestion].type) {
     case AnswersText.TWO_IMG:
-      const quest = questions[state.currentQuestion];
+      const quest = questions[stat.currentQuestion];
       const labelOptions = element.querySelectorAll(`input:checked`);
 
       if (labelOptions[0].value === quest.options[0].type && labelOptions[1].value === quest.options[1].type) {
@@ -27,7 +27,7 @@ export const chooseAnswer = (evt, element) => {
 
     case AnswersText.PHOTO_OR_PAINT:
 
-      const question = questions[state.currentQuestion];
+      const question = questions[stat.currentQuestion];
       const label = evt.target.closest(`.game__answer`);
       if (label === null) {
         return;
