@@ -29,14 +29,17 @@ const Initial = {
 
 const Timer = {
   INITIAL: 30,
-  LEFT: 0
+  CRITICAL: 10,
+  LEFT: 0,
+  FREQUENCY: 1000
 };
 
 const state = {
   lives: 3,
   answers: [],
   currentQuestion: 0,
-  answersTextType: answersTextTypeInitial.slice()
+  answersTextType: answersTextTypeInitial.slice(),
+  time: Timer.INITIAL
 };
 
 // На входе текущее количсевто оставшихся попыток и тип ответа

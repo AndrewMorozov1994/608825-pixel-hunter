@@ -1,6 +1,5 @@
 import AbstractView from '../abstract-view.js';
 import {questions} from '../data/data.js';
-import renderHeader from '../tempates/render-header.js';
 import renderQuestion from '../tempates/render-question.js';
 import renderStats from '../tempates/render-stats.js';
 import {questionTypes} from '../data/data.js';
@@ -9,15 +8,14 @@ import {chooseAnswer} from '../data/answers.js';
 export default class GameView extends AbstractView {
   constructor(stat) {
     super();
-    this.stat = stat;
+    this._stat = stat;
   }
 
   get template() {
-    const {lives, currentQuestion, answersTextType} = this.stat;
+    const {currentQuestion, answersTextType} = this._stat;
     const question = questions[currentQuestion];
 
     return `
-    ${renderHeader(lives)}
     <section class="game">
        ${renderQuestion(question)}
        ${renderStats(answersTextType)}
@@ -29,7 +27,6 @@ export default class GameView extends AbstractView {
     const gameTitle = this.element.querySelector(`.game__task`).innerHTML;
     const form = this.element.querySelector(`form`);
     const gameAnswers = this.element.querySelectorAll(`input`);
-    const backButton = this.element.querySelector(`.back`);
 
     switch (gameTitle) {
 
@@ -61,11 +58,6 @@ export default class GameView extends AbstractView {
         }
         break;
     }
-
-    backButton.addEventListener(`click`, () => {
-      this.onBack();
-    });
   }
   onAnswer() {}
-  onBack() {}
 }

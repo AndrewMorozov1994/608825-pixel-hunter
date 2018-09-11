@@ -1,20 +1,21 @@
-import {changeScreen} from '../utils.js';
 import {state, Level, Initial} from '../game-count.js';
-import renderGameScreen from './render-game-screen.js';
 import {answersTextTypeInitial} from '../data/data.js';
 import RulesView from '../view/rules-view.js';
 import Router from '../application.js';
+import headerScreen from './header.js';
 
 export default class RulesScreen {
   constructor() {
     this.view = new RulesView();
     this.view.onClickNext = () => {
-      changeScreen(renderGameScreen(state));
+      Router.showGame();
     };
   }
 
   get element() {
-    return this.view.element;
+    const element = this.view.element;
+    element.prepend(headerScreen().element);
+    return element;
   }
 }
 
