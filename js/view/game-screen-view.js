@@ -33,7 +33,7 @@ export default class GameView extends AbstractView {
       case questionTypes.TWO_IMG:
         const seeGameTwo = (evt) => {
           if ([...gameAnswers].filter((el) => el.checked).length === 2) {
-            chooseAnswer(evt, this.element);
+            chooseAnswer(evt, this.element, this._stat);
             this.onAnswer();
           }
         };
@@ -43,7 +43,7 @@ export default class GameView extends AbstractView {
       case questionTypes.PHOTO_OR_PAINT:
         for (let i = 0; i < gameAnswers.length; i++) {
           gameAnswers[i].addEventListener(`click`, (evt) => {
-            chooseAnswer(evt, this.element);
+            chooseAnswer(evt, this.element, this._stat);
             this.onAnswer();
           });
         }
@@ -52,7 +52,7 @@ export default class GameView extends AbstractView {
       case questionTypes.FIND_PAINT:
         for (let i = 0; i < gameAnswers.length; i++) {
           gameAnswers[i].addEventListener(`click`, (evt) => {
-            chooseAnswer(evt, this.element);
+            chooseAnswer(evt, this.element, this._stat);
             this.onAnswer();
           });
         }

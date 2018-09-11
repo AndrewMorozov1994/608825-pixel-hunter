@@ -34,7 +34,7 @@ export default class GameModel {
 
   _resetTime() {
     this._stat = Object.assign({}, this._stat, {
-      timer: Timer.INITIAL
+      time: Timer.INITIAL
     });
   }
 }

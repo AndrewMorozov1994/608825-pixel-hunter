@@ -15,6 +15,10 @@ export default class GameScreen {
     return this._root;
   }
 
+  _stopTimer() {
+    clearInterval(this._interval);
+  }
+
   startGame() {
     this._model.init();
 
@@ -34,37 +38,34 @@ export default class GameScreen {
     }, Timer.FREQUENCY);
   }
 
-  _stopTimer() {
-    clearInterval(this._interval);
-  }
-
   _updateTimer() {
     this._header.changeTime(this._model.stat);
   }
 
+  _updateLives() {
+    this._header.changeLives(this._model.stat);
+  }
+
   _updateGame() {
     this._model.nextGame();
-    console.log(this._model.stat.currentQuestion);
     this._runTimer();
     this._updateTimer();
+    this._updateLives();
     const game = new GameView(this._model.stat);
 
-    const gameElement = game.element.children[0];
     if (this._game) {
-      this._root.replaceChild(gameElement, this._game);
+      this._root.replaceChild(game.element, this._game.element);
     } else {
-      this._root.appendChild(gameElement);
+      this._root.appendChild(game.element);
     }
+    this._game = game;
 
-    this._game = gameElement;
     game.onAnswer = this._answer.bind(this);
-
-    return game.element;
   }
 
   _answer() {
     this._stopTimer();
-
+    // console.log(this._model.tick().time);
     const form = this.element.querySelector(`form`);
 
     const resetGame = () => {
@@ -88,6 +89,7 @@ export default class GameScreen {
     this._model.stat.answersTextType[this._model.stat.currentQuestion] = getTypeAnswer(this._model.stat);
     this._model.stat.lives = calculateLives(this._model.stat.lives, this._model.stat.answers[this._model.stat.answers.length - 1]);
     this._model.stat.currentQuestion = changeLevel(this._model.stat.currentQuestion);
+    console.log(this._model.stat.lives);
 
     if (this._model.stat.lives >= 0 && this._model.stat.currentQuestion <= 9) {
       this._updateGame();

@@ -31,6 +31,10 @@ export default class HeaderView extends AbstractView {
     this._timer.textContent = time;
   }
 
+  changeLives({lives}) {
+    this._lives.innerHTML = renderLives(lives);
+  }
+
   bind() {
     const {element} = this;
 
