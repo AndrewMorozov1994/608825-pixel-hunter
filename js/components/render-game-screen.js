@@ -1,7 +1,5 @@
-// import {changeScreen} from '../utils.js';
 import GameView from '../view/game-screen-view.js';
-import answersTypes from '../data/answers-types.js';
-import {Timer, changeLevel, calculateLives} from '../game-count.js';
+import {Timer, changeLevel, calculateLives, calculateAnswerTimeType, getTypeAnswer} from '../game-count.js';
 import Router from '../application.js';
 import GameModel from '../model/game-model.js';
 import headerScreen from './header.js';
@@ -36,6 +34,10 @@ export default class GameScreen {
       }
       this._updateTimer();
     }, Timer.FREQUENCY);
+
+    if (this._model.tick().time === 0) {
+      this._updateGame();
+    }
   }
 
   _updateTimer() {
@@ -72,24 +74,17 @@ export default class GameScreen {
       form.reset();
     };
 
-    const getTypeAnswer = (st) => {
-      switch (st.answers[st.answers.length - 1]) {
-        case 0:
-          return answersTypes.WRONG;
-        case 1:
-          return answersTypes.SLOW;
-        case 2:
-          return answersTypes.CORRECT;
-        case 3:
-          return answersTypes.FAST;
-        default:
-          return ``;
-      }
-    };
+    const answer = this._model.stat.answers[this._model.stat.answers.length - 1];
+
+    if (answer === 1) {
+      this._model.stat.answers[this._model.stat.answers.length - 1] = calculateAnswerTimeType(this._model.tick().time);
+    } else {
+      this._model.stat.answers[this._model.stat.answers.length - 1] = 0;
+    }
+
     this._model.stat.answersTextType[this._model.stat.currentQuestion] = getTypeAnswer(this._model.stat);
-    this._model.stat.lives = calculateLives(this._model.stat.lives, this._model.stat.answers[this._model.stat.answers.length - 1]);
+    this._model.stat.lives = calculateLives(this._model.stat.lives, answer);
     this._model.stat.currentQuestion = changeLevel(this._model.stat.currentQuestion);
-    console.log(this._model.stat.lives);
 
     if (this._model.stat.lives >= 0 && this._model.stat.currentQuestion <= 9) {
       this._updateGame();
@@ -99,43 +94,3 @@ export default class GameScreen {
     resetGame();
   }
 }
-
-// const updateGame = (stat) => {
-//   const gameView = new GameView(stat);
-//   const form = gameView.element.querySelector(`form`);
-//   const resetGame = () => {
-//     form.reset();
-//   };
-//   const getTypeAnswer = (st) => {
-//     switch (st.answers[st.answers.length - 1]) {
-//       case 0:
-//         return answersTypes.WRONG;
-//       case 1:
-//         return answersTypes.SLOW;
-//       case 2:
-//         return answersTypes.CORRECT;
-//       case 3:
-//         return answersTypes.FAST;
-//       default:
-//         return ``;
-//     }
-//   };
-//
-//   gameView.onAnswer = () => {
-//     stat.answersTextType[stat.currentQuestion] = getTypeAnswer(stat);
-//
-//     stat.lives = calculateLives(stat.lives, stat.answers[stat.answers.length - 1]);
-//     stat.currentQuestion = changeLevel(stat.currentQuestion);
-//
-//     if (stat.lives >= 0 && stat.currentQuestion <= 9) {
-//       changeScreen(updateGame(stat));
-//     } else {
-//       Router.showStats(stat);
-//     }
-//     resetGame();
-//   };
-//
-//   return gameView.element;
-// };
-//
-// export default updateGame;

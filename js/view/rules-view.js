@@ -1,5 +1,4 @@
 import AbstractView from '../abstract-view.js';
-import backButtonTemplate from '../tempates/backbutton.js';
 
 export default class RulesView extends AbstractView {
   get template() {

@@ -1,4 +1,5 @@
 import {answersTextTypeInitial} from './data/data.js';
+import answersTypes from './data/answers-types.js';
 
 const POINT_VALUE = 50;
 
@@ -28,7 +29,7 @@ const Initial = {
 };
 
 const Timer = {
-  INITIAL: 30,
+  INITIAL: 31,
   CRITICAL: 10,
   LEFT: 0,
   FREQUENCY: 1000
@@ -77,5 +78,20 @@ const changeLevel = (countLevel) => {
   return countLevel + 1;
 };
 
-export {state, Level, Initial, Timer, changeLevel, calculateAnswerTimeType, calculateScores, calculateLives};
+const getTypeAnswer = (stat) => {
+  switch (stat.answers[stat.answers.length - 1]) {
+    case 0:
+      return answersTypes.WRONG;
+    case 1:
+      return answersTypes.SLOW;
+    case 2:
+      return answersTypes.CORRECT;
+    case 3:
+      return answersTypes.FAST;
+    default:
+      return ``;
+  }
+};
+
+export {state, Level, Initial, Timer, getTypeAnswer, changeLevel, calculateAnswerTimeType, calculateScores, calculateLives};
 

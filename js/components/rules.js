@@ -1,5 +1,3 @@
-import {state, Level, Initial} from '../game-count.js';
-import {answersTextTypeInitial} from '../data/data.js';
 import RulesView from '../view/rules-view.js';
 import Router from '../application.js';
 import headerScreen from './header.js';
@@ -18,14 +16,3 @@ export default class RulesScreen {
     return element;
   }
 }
-
-export const seeGreetingScreen = (callback) => {
-  if (callback) {
-    callback();
-  }
-  Router.showGreeting();
-  state.currentQuestion = Level.INITIAL;
-  state.lives = Initial.LIVES;
-  state.answers = [];
-  state.answersTextType = answersTextTypeInitial.slice();
-};

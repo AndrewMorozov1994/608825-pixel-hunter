@@ -2,7 +2,7 @@ import {questions} from '../data/data.js';
 import {state} from '../game-count.js';
 
 const WRONG = 0;
-const CORRECT = 2;
+const CORRECT = 1;
 
 const AnswersText = {
   TWO_IMG: `Угадайте для каждого изображения фото или рисунок?`,
