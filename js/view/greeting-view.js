@@ -1,4 +1,5 @@
 import AbstractView from '../abstract-view.js';
+import Loader from '../data/load.js';
 
 export default class GreetingView extends AbstractView {
   get template() {
@@ -33,6 +34,10 @@ export default class GreetingView extends AbstractView {
     rightArrow.addEventListener(`click`, () => {
       this.onClickNext();
     });
+
+    const ans = [];
+    Loader.loadData().then((it) => ans.push(...it));
+    console.log(ans);
   }
 
   onClickNext() {}

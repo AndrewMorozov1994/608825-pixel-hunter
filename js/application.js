@@ -4,8 +4,20 @@ import GreetingScreen from './components/greeting.js';
 import RulesScreen from './components/rules.js';
 import StatsScreen from './components/stats.js';
 import GameScreen from './components/render-game-screen.js';
+import ErrorScreen from './components/error.js';
+import Loader from './data/load.js';
 
 export default class Router {
+  static start() {
+    Router.showIntro();
+    Loader.loadData()
+      .then(Router.showGreeting)
+      .then(console.log())
+      .catch((error) => {
+        Router.showError(error);
+      });
+  }
+
   static showIntro() {
     const introScreen = new IntroScreen();
     changeScreen(introScreen.element);
@@ -30,5 +42,10 @@ export default class Router {
   static showStats(stat) {
     const statsScreen = new StatsScreen(stat);
     changeScreen(statsScreen.element);
+  }
+
+  static showError(error) {
+    const errorScreen = new ErrorScreen(error);
+    changeScreen(errorScreen.element);
   }
 }
