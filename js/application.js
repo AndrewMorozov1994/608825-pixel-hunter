@@ -7,12 +7,12 @@ import GameScreen from './components/render-game-screen.js';
 import ErrorScreen from './components/error.js';
 import Loader from './data/load.js';
 
-export const loadQuestions = [];
+export const loadedQuestions = [];
 export default class Router {
   static start() {
     Router.showIntro();
     Loader.loadData()
-      .then((it) => loadQuestions.push(...it))
+      .then((it) => loadedQuestions.push(...it))
       .then(Router.showGreeting)
       .catch((error) => {
         Router.showError(error);

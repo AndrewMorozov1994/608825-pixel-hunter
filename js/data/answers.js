@@ -1,5 +1,5 @@
 import {state} from '../game-count.js';
-import {loadQuestions} from '../application.js';
+import {loadedQuestions} from '../application.js';
 
 const WRONG = 0;
 const CORRECT = 1;
@@ -18,9 +18,9 @@ const AnswersType = {
 
 export const chooseAnswer = (evt, element, stat) => {
 
-  switch (loadQuestions[stat.currentQuestion].question) {
+  switch (loadedQuestions[stat.currentQuestion].question) {
     case AnswersText.TWO_IMG:
-      const quest = loadQuestions[stat.currentQuestion];
+      const quest = loadedQuestions[stat.currentQuestion];
       const labelOptions = element.querySelectorAll(`input:checked`);
 
       if (labelOptions[0].value === quest.answers[0].type && labelOptions[1].value === quest.answers[1].type) {
@@ -33,7 +33,7 @@ export const chooseAnswer = (evt, element, stat) => {
 
     case AnswersText.PHOTO_OR_PAINT:
 
-      const question = loadQuestions[stat.currentQuestion];
+      const question = loadedQuestions[stat.currentQuestion];
       const label = evt.target.closest(`.game__answer`);
       if (label === null) {
         return;

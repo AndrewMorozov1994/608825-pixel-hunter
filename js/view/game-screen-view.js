@@ -3,7 +3,7 @@ import renderQuestion from '../tempates/render-question.js';
 import renderStats from '../tempates/render-stats.js';
 import {questionTypes} from '../data/data.js';
 import {chooseAnswer} from '../data/answers.js';
-import {loadQuestions} from '../application.js';
+import {loadedQuestions} from '../application.js';
 const checkedInputQuantity = 2;
 
 export default class GameView extends AbstractView {
@@ -14,7 +14,7 @@ export default class GameView extends AbstractView {
 
   get template() {
     const {currentQuestion, answersTextType} = this._stat;
-    const question = loadQuestions[currentQuestion];
+    const question = loadedQuestions[currentQuestion];
 
     return `
     <section class="game">
@@ -25,7 +25,6 @@ export default class GameView extends AbstractView {
   }
 
   bind() {
-    console.log(loadQuestions[this._stat.currentQuestion]);
     const gameTitle = this.element.querySelector(`.game__task`).innerHTML;
     const form = this.element.querySelector(`form`);
     const gameAnswers = this.element.querySelectorAll(`input`);
