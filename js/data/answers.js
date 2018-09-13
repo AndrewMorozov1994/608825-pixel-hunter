@@ -1,4 +1,3 @@
-// import {questions} from '../data/data.js';
 import {state} from '../game-count.js';
 import {loadQuestions} from '../application.js';
 
@@ -10,6 +9,11 @@ const AnswersText = {
   PHOTO_OR_PAINT: `Угадай, фото или рисунок?`,
   FIND_PAINT: `Найдите рисунок среди изображений`,
   FIND_PHOTO: `Найдите фото среди изображений`
+};
+
+const AnswersType = {
+  PAINT: `painting`,
+  PHOTO: `photo`
 };
 
 export const chooseAnswer = (evt, element, stat) => {
@@ -52,7 +56,7 @@ export const chooseAnswer = (evt, element, stat) => {
         return;
       }
       const inputPainting = labelOp.querySelector(`input`);
-      if (inputPainting.value === `painting`) {
+      if (inputPainting.value === AnswersType.PAINT) {
         state.answers.push(CORRECT);
       } else {
         state.answers.push(WRONG);
@@ -66,7 +70,7 @@ export const chooseAnswer = (evt, element, stat) => {
         return;
       }
       const inputPhoto = labelOpPhoto.querySelector(`input`);
-      if (inputPhoto.value === `photo`) {
+      if (inputPhoto.value === AnswersType.PHOTO) {
         state.answers.push(CORRECT);
       } else {
         state.answers.push(WRONG);

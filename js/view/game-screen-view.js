@@ -1,10 +1,10 @@
 import AbstractView from '../abstract-view.js';
-// import {questions} from '../data/data.js';
 import renderQuestion from '../tempates/render-question.js';
 import renderStats from '../tempates/render-stats.js';
 import {questionTypes} from '../data/data.js';
 import {chooseAnswer} from '../data/answers.js';
 import {loadQuestions} from '../application.js';
+const checkedInputQuantity = 2;
 
 export default class GameView extends AbstractView {
   constructor(stat) {
@@ -34,7 +34,7 @@ export default class GameView extends AbstractView {
 
       case questionTypes.TWO_IMG:
         const seeGameTwo = (evt) => {
-          if ([...gameAnswers].filter((el) => el.checked).length === 2) {
+          if ([...gameAnswers].filter((el) => el.checked).length === checkedInputQuantity) {
             chooseAnswer(evt, this.element, this._stat);
             this.onAnswer();
           }
