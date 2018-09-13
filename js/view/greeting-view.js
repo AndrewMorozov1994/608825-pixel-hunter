@@ -1,5 +1,4 @@
 import AbstractView from '../abstract-view.js';
-import {loadQuestions} from '../application.js';
 
 export default class GreetingView extends AbstractView {
   get template() {
@@ -34,7 +33,6 @@ export default class GreetingView extends AbstractView {
     rightArrow.addEventListener(`click`, () => {
       this.onClickNext();
     });
-    console.log(loadQuestions[5]);
   }
 
   onClickNext() {}

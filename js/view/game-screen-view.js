@@ -1,9 +1,10 @@
 import AbstractView from '../abstract-view.js';
-import {questions} from '../data/data.js';
+// import {questions} from '../data/data.js';
 import renderQuestion from '../tempates/render-question.js';
 import renderStats from '../tempates/render-stats.js';
 import {questionTypes} from '../data/data.js';
 import {chooseAnswer} from '../data/answers.js';
+import {loadQuestions} from '../application.js';
 
 export default class GameView extends AbstractView {
   constructor(stat) {
@@ -13,7 +14,7 @@ export default class GameView extends AbstractView {
 
   get template() {
     const {currentQuestion, answersTextType} = this._stat;
-    const question = questions[currentQuestion];
+    const question = loadQuestions[currentQuestion];
 
     return `
     <section class="game">
@@ -24,6 +25,7 @@ export default class GameView extends AbstractView {
   }
 
   bind() {
+    console.log(loadQuestions[this._stat.currentQuestion]);
     const gameTitle = this.element.querySelector(`.game__task`).innerHTML;
     const form = this.element.querySelector(`form`);
     const gameAnswers = this.element.querySelectorAll(`input`);
@@ -50,6 +52,15 @@ export default class GameView extends AbstractView {
         break;
 
       case questionTypes.FIND_PAINT:
+        for (let i = 0; i < gameAnswers.length; i++) {
+          gameAnswers[i].addEventListener(`click`, (evt) => {
+            chooseAnswer(evt, this.element, this._stat);
+            this.onAnswer();
+          });
+        }
+        break;
+
+      case questionTypes.FIND_PHOTO:
         for (let i = 0; i < gameAnswers.length; i++) {
           gameAnswers[i].addEventListener(`click`, (evt) => {
             chooseAnswer(evt, this.element, this._stat);
