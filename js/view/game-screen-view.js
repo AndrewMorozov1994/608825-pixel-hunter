@@ -7,13 +7,13 @@ import {loadedQuestions} from '../application.js';
 const checkedInputQuantity = 2;
 
 export default class GameView extends AbstractView {
-  constructor(stat) {
+  constructor(state) {
     super();
-    this._stat = stat;
+    this._state = state;
   }
 
   get template() {
-    const {currentQuestion, answersTextType} = this._stat;
+    const {currentQuestion, answersTextType} = this._state  ;
     const question = loadedQuestions[currentQuestion];
 
     return `
@@ -32,37 +32,37 @@ export default class GameView extends AbstractView {
     switch (gameTitle) {
 
       case questionTypes.TWO_IMG:
-        const seeGameTwo = (evt) => {
+        const seeNextScreen = (evt) => {
           if ([...gameAnswers].filter((el) => el.checked).length === checkedInputQuantity) {
-            chooseAnswer(evt, this.element, this._stat);
+            chooseAnswer(evt, this.element, this._state);
             this.onAnswer();
           }
         };
-        form.addEventListener(`click`, seeGameTwo);
+        form.addEventListener(`click`, seeNextScreen);
         break;
 
       case questionTypes.PHOTO_OR_PAINT:
-        for (let i = 0; i < gameAnswers.length; i++) {
-          gameAnswers[i].addEventListener(`click`, (evt) => {
-            chooseAnswer(evt, this.element, this._stat);
+        for (let item of gameAnswers) {
+          item.addEventListener(`click`, (evt) => {
+            chooseAnswer(evt, this.element, this._state);
             this.onAnswer();
           });
         }
         break;
 
       case questionTypes.FIND_PAINT:
-        for (let i = 0; i < gameAnswers.length; i++) {
-          gameAnswers[i].addEventListener(`click`, (evt) => {
-            chooseAnswer(evt, this.element, this._stat);
+        for (let item of gameAnswers) {
+          item.addEventListener(`click`, (evt) => {
+            chooseAnswer(evt, this.element, this._state);
             this.onAnswer();
           });
         }
         break;
 
       case questionTypes.FIND_PHOTO:
-        for (let i = 0; i < gameAnswers.length; i++) {
-          gameAnswers[i].addEventListener(`click`, (evt) => {
-            chooseAnswer(evt, this.element, this._stat);
+        for (let item of gameAnswers) {
+          item.addEventListener(`click`, (evt) => {
+            chooseAnswer(evt, this.element, this._state);
             this.onAnswer();
           });
         }

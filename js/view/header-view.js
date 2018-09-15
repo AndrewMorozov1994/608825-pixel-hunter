@@ -9,15 +9,15 @@ const renderHeaderContent = ({time, lives}) => {
           `;
 };
 export default class HeaderView extends AbstractView {
-  constructor(stat) {
+  constructor(state) {
     super();
-    this._stat = stat;
+    this._state = state;
   }
 
   get template() {
     return `<header class='header'>
       ${backButtonTemplate}
-      ${this._stat ? renderHeaderContent(this._stat) : ``}
+      ${this._state ? renderHeaderContent(this._state) : ``}
     </header>`;
   }
 

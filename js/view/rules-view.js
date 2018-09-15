@@ -32,7 +32,7 @@ export default class RulesView extends AbstractView {
     });
 
     continueButton.addEventListener(`click`, () => {
-      this.onClickNext();
+      this.onClickNext(inputName.value);
     });
   }
 

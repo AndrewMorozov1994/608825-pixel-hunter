@@ -5,8 +5,8 @@ import headerScreen from './header.js';
 export default class RulesScreen {
   constructor() {
     this.view = new RulesView();
-    this.view.onClickNext = () => {
-      Router.showGame();
+    this.view.onClickNext = (name) => {
+      Router.showGame(name);
     };
   }
 

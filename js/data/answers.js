@@ -1,8 +1,10 @@
 import {state} from '../game-count.js';
 import {loadedQuestions} from '../application.js';
 
-const WRONG = 0;
-const CORRECT = 1;
+const Types = {
+  WRONG: 0,
+  CORRECT: 1
+};
 
 const AnswersText = {
   TWO_IMG: `Угадайте для каждого изображения фото или рисунок?`,
@@ -16,24 +18,24 @@ const AnswersType = {
   PHOTO: `photo`
 };
 
-export const chooseAnswer = (evt, element, stat) => {
+export const chooseAnswer = (evt, element, statistics) => {
 
-  switch (loadedQuestions[stat.currentQuestion].question) {
+  switch (loadedQuestions[statistics.currentQuestion].question) {
     case AnswersText.TWO_IMG:
-      const quest = loadedQuestions[stat.currentQuestion];
+      const quest = loadedQuestions[statistics.currentQuestion];
       const labelOptions = element.querySelectorAll(`input:checked`);
 
       if (labelOptions[0].value === quest.answers[0].type && labelOptions[1].value === quest.answers[1].type) {
-        state.answers.push(CORRECT);
+        state.answers.push(Types.CORRECT);
       } else {
-        state.answers.push(WRONG);
+        state.answers.push(Types.WRONG);
       }
 
       break;
 
     case AnswersText.PHOTO_OR_PAINT:
 
-      const question = loadedQuestions[stat.currentQuestion];
+      const question = loadedQuestions[statistics.currentQuestion];
       const label = evt.target.closest(`.game__answer`);
       if (label === null) {
         return;
@@ -41,9 +43,9 @@ export const chooseAnswer = (evt, element, stat) => {
       const input = label.querySelector(`input`);
 
       if (input.value === question.answers[0].type) {
-        state.answers.push(CORRECT);
+        state.answers.push(Types.CORRECT);
       } else {
-        state.answers.push(WRONG);
+        state.answers.push(Types.WRONG);
       }
 
       break;
@@ -57,23 +59,23 @@ export const chooseAnswer = (evt, element, stat) => {
       }
       const inputPainting = labelOp.querySelector(`input`);
       if (inputPainting.value === AnswersType.PAINT) {
-        state.answers.push(CORRECT);
+        state.answers.push(Types.CORRECT);
       } else {
-        state.answers.push(WRONG);
+        state.answers.push(Types.WRONG);
       }
       break;
 
     case AnswersText.FIND_PHOTO:
 
-      const labelOpPhoto = evt.target.closest(`.game__option`);
-      if (labelOpPhoto === null) {
+      const labelOrPhoto = evt.target.closest(`.game__option`);
+      if (labelOrPhoto === null) {
         return;
       }
-      const inputPhoto = labelOpPhoto.querySelector(`input`);
+      const inputPhoto = labelOrPhoto.querySelector(`input`);
       if (inputPhoto.value === AnswersType.PHOTO) {
-        state.answers.push(CORRECT);
+        state.answers.push(Types.CORRECT);
       } else {
-        state.answers.push(WRONG);
+        state.answers.push(Types.WRONG);
       }
       break;
   }

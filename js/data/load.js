@@ -1,4 +1,5 @@
-const URL = `https://es.dump.academy/pixel-hunter/questions`;
+const URL = `https://es.dump.academy/pixel-hunter`;
+const APP_ID = 20001084;
 
 const checkStatus = (response) => {
   if (response.ok) {
@@ -47,9 +48,28 @@ const loadQuestions = (data) => {
 
 export default class Loader {
   static loadData() {
-    return window.fetch(URL)
+    return window.fetch(`${URL}/questions`)
       .then(checkStatus)
       .then(toJSON)
       .then(loadQuestions);
+  }
+
+  static saveResults(data, name) {
+    const requestSettings = {
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': `application/json`
+      },
+      method: `POST`
+    };
+
+    return window.fetch(`${URL}/stats/${APP_ID}-${name}`, requestSettings)
+      .then(checkStatus);
+  }
+
+  static loadResults(name) {
+    return window.fetch(`${URL}/stats/${APP_ID}-${name}`)
+      .then(checkStatus)
+      .then(toJSON);
   }
 }

@@ -11,6 +11,4 @@ const changeScreen = (element) => {
   mainElement.appendChild(element);
 };
 
-const ans = [];
-
-export {render, changeScreen, ans};
+export {render, changeScreen};
