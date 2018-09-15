@@ -13,7 +13,7 @@ export default class GameView extends AbstractView {
   }
 
   get template() {
-    const {currentQuestion, answersTextType} = this._state  ;
+    const {currentQuestion, answersTextType} = this._state;
     const question = loadedQuestions[currentQuestion];
 
     return `
