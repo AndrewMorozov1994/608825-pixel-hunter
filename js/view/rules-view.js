@@ -27,7 +27,7 @@ export default class RulesView extends AbstractView {
     const continueButton = this.element.querySelector(`.rules__button`);
 
     inputName.addEventListener(`input`, () => {
-      let name = inputName.value;
+      const name = inputName.value;
       continueButton.disabled = !name.length;
     });
 
