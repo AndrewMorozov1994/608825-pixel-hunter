@@ -1,8 +1,8 @@
 import AbstractView from '../abstract-view.js';
 const ActionType = {
-  ok: `ok`,
-  cancel: `cancel`,
-  close: `close`
+  OK: `ok`,
+  CANCEL: `cancel`,
+  CLOSE: `close`
 };
 
 export default class ConfirmView extends AbstractView {
@@ -28,15 +28,15 @@ export default class ConfirmView extends AbstractView {
     modal.addEventListener(`click`, (evt) => {
       const action = evt.target.value;
       switch (action) {
-        case ActionType.ok:
+        case ActionType.OK:
           this.onOk();
           break;
 
-        case ActionType.cancel:
+        case ActionType.CANCEL:
           this.onCancel();
           break;
 
-        case ActionType.close:
+        case ActionType.CLOSE:
           this.onClose();
           break;
       }

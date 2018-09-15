@@ -3,16 +3,16 @@ import {calculateScores} from '../game-count.js';
 import renderStats from '../tempates/render-stats.js';
 
 export default class StatsView extends AbstractView {
-  constructor(stat) {
+  constructor(state) {
     super();
-    this._lastStat = stat[stat.length - 1];
-    this._statistics = stat.length > 3 ? stat.splice(stat.length - 3).reverse() : stat.reverse();
+    this._currentStatistics = state[state.length - 1];
+    this._statistics = state.length > 3 ? state.splice(state.length - 3).reverse() : state.reverse();
   }
 
   get template() {
     return `
       <section class="result">
-          <h2 class="result__title">${this._lastStat.lives >= 0 ? `Победа!` : `Поражение`}</h2>
+          <h2 class="result__title">${this._currentStatistics.lives >= 0 ? `Победа!` : `Поражение`}</h2>
           ${this._statistics.map((it) => {
     return `<table class="result__table">
             <tr>

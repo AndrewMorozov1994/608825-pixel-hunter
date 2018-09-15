@@ -7,8 +7,8 @@ export default class GameModel {
     this._playerName = playerName;
   }
 
-  get stat() {
-    return this._stat;
+  get state() {
+    return this._state;
   }
 
   get player() {
@@ -16,24 +16,24 @@ export default class GameModel {
   }
 
   init() {
-    this._stat = Object.assign({}, state, {
+    this._state = Object.assign({}, state, {
       question: [...loadedQuestions]
     });
   }
 
   nextGame() {
-    this._stat = Object.assign({}, this._stat, {
-      question: loadedQuestions[this._stat.currentQuestion + 1]
+    this._state = Object.assign({}, this._state, {
+      question: loadedQuestions[this._state.currentQuestion + 1]
     });
     this._resetTime();
-    this._timer = createTimer(this._stat.time);
+    this._timer = createTimer(this._state.time);
 
   }
 
   tick() {
     const result = this._timer.tick();
 
-    this._stat = Object.assign({}, this._stat, {
+    this._state = Object.assign({}, this._state, {
       time: result.time
     });
 
@@ -41,7 +41,7 @@ export default class GameModel {
   }
 
   _resetTime() {
-    this._stat = Object.assign({}, this._stat, {
+    this._state = Object.assign({}, this._state, {
       time: Timer.INITIAL
     });
   }

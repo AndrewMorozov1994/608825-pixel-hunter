@@ -21,7 +21,7 @@ export default class GameScreen {
     this._model.init();
 
     this._root = document.createElement(`div`);
-    this._header = headerScreen(this._model.stat);
+    this._header = headerScreen(this._model.state);
     this._root.appendChild(this._header.element);
 
     this._updateGame();
@@ -41,11 +41,11 @@ export default class GameScreen {
   }
 
   _updateTimer() {
-    this._header.changeTime(this._model.stat);
+    this._header.changeTime(this._model.state);
   }
 
   _updateLives() {
-    this._header.changeLives(this._model.stat);
+    this._header.changeLives(this._model.state);
   }
 
   _updateGame() {
@@ -53,7 +53,7 @@ export default class GameScreen {
     this._runTimer();
     this._updateTimer();
     this._updateLives();
-    const game = new GameView(this._model.stat);
+    const game = new GameView(this._model.state);
 
     if (this._game) {
       this._root.replaceChild(game.element, this._game.element);
@@ -73,22 +73,22 @@ export default class GameScreen {
       form.reset();
     };
 
-    const answer = this._model.stat.answers[this._model.stat.answers.length - 1];
+    const answer = this._model.state.answers[this._model.state.answers.length - 1];
 
     if (answer === 1) {
-      this._model.stat.answers[this._model.stat.answers.length - 1] = calculateAnswerTimeType(this._model.tick().time);
+      this._model.state.answers[this._model.state.answers.length - 1] = calculateAnswerTimeType(this._model.tick().time);
     } else {
-      this._model.stat.answers[this._model.stat.answers.length - 1] = 0;
+      this._model.state.answers[this._model.state.answers.length - 1] = 0;
     }
 
-    this._model.stat.answersTextType[this._model.stat.currentQuestion] = getTypeAnswer(this._model.stat);
-    this._model.stat.lives = calculateLives(this._model.stat.lives, answer);
-    this._model.stat.currentQuestion = changeLevel(this._model.stat.currentQuestion);
+    this._model.state.answersTextType[this._model.state.currentQuestion] = getTypeAnswer(this._model.state);
+    this._model.state.lives = calculateLives(this._model.state.lives, answer);
+    this._model.state.currentQuestion = changeLevel(this._model.state.currentQuestion);
 
-    if (this._model.stat.lives >= 0 && this._model.stat.currentQuestion <= 9) {
+    if (this._model.state.lives >= 0 && this._model.state.currentQuestion <= 9) {
       this._updateGame();
     } else {
-      Router.finish(this._model.stat, this._model._playerName);
+      Router.finish(this._model.state, this._model._playerName);
     }
     resetGame();
   }

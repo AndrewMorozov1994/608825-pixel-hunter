@@ -11,11 +11,11 @@ const resetSettings = () => {
   state.answersTextType = answersTextTypeInitial.slice();
 };
 
-export default (stat) => {
-  const headerScreen = new HeaderView(stat);
+export default (statistics) => {
+  const headerScreen = new HeaderView(statistics);
 
   headerScreen.goBack = () => {
-    if (!stat) {
+    if (!statistics) {
       Router.showGreeting();
       resetSettings();
       return;

@@ -4,13 +4,13 @@ import answersTypes from './data/answers-types.js';
 const POINT_VALUE = 50;
 
 const Answer = {
-  timeType: {
+  TimeType: {
     WRONG: 0,
     SLOW: 1,
     NORMAL: 2,
     FAST: 3
   },
-  timing: {
+  Timing: {
     WRONG: 0,
     SLOW: 10,
     NORMAL: 20
@@ -59,19 +59,19 @@ const calculateScores = (answers, lives) => {
 };
 
 const calculateAnswerTimeType = (time) => {
-  if (time <= Answer.timing.WRONG) {
-    return Answer.timeType.WRONG;
+  if (time <= Answer.Timing.WRONG) {
+    return Answer.TimeType.WRONG;
   }
 
-  if (time < Answer.timing.SLOW) {
-    return Answer.timeType.SLOW;
+  if (time < Answer.Timing.SLOW) {
+    return Answer.TimeType.SLOW;
   }
 
-  if (time <= Answer.timing.NORMAL) {
-    return Answer.timeType.NORMAL;
+  if (time <= Answer.Timing.NORMAL) {
+    return Answer.TimeType.NORMAL;
   }
 
-  return Answer.timeType.FAST;
+  return Answer.TimeType.FAST;
 };
 
 const changeLevel = (countLevel) => {
