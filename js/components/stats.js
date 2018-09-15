@@ -12,15 +12,3 @@ export default class StatsScreen {
     return element;
   }
 }
-
-// const renderState = (stat) => {
-//   const statsRender = new StatsView(stat);
-//
-//   statsRender.onBack = () => {
-//     seeGreetingScreen();
-//   };
-//
-//   return statsRender.element;
-// };
-//
-// export default renderState;

@@ -5,8 +5,8 @@ import GameModel from '../model/game-model.js';
 import headerScreen from './header.js';
 
 export default class GameScreen {
-  constructor() {
-    this._model = new GameModel();
+  constructor(name) {
+    this._model = new GameModel(name);
   }
 
   get element() {
@@ -67,7 +67,6 @@ export default class GameScreen {
 
   _answer() {
     this._stopTimer();
-    // console.log(this._model.tick().time);
     const form = this.element.querySelector(`form`);
 
     const resetGame = () => {
@@ -89,7 +88,7 @@ export default class GameScreen {
     if (this._model.stat.lives >= 0 && this._model.stat.currentQuestion <= 9) {
       this._updateGame();
     } else {
-      Router.finish(this._model.stat);
+      Router.finish(this._model.stat, this._model._playerName);
     }
     resetGame();
   }

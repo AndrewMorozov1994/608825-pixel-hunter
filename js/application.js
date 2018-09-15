@@ -19,11 +19,11 @@ export default class Router {
       });
   }
 
-  static finish({state, player}) {
+  static finish(state, player) {
     Loader.saveResults(state, player)
       .then(() => Loader.loadResults(player))
       .then((result) => {
-        Router.showStats(result, player);
+        Router.showStats(result);
       })
       .catch((error) => {
         Router.showError(error);
@@ -46,13 +46,13 @@ export default class Router {
   }
 
   static showGame(name) {
-    const gameScreen = new GameScreen({stat, name});
+    const gameScreen = new GameScreen(name);
     gameScreen.startGame();
     changeScreen(gameScreen.element);
   }
 
-  static showStats(result, player) {
-    const statsScreen = new StatsScreen({result, player});
+  static showStats(result) {
+    const statsScreen = new StatsScreen(result);
     changeScreen(statsScreen.element);
   }
 

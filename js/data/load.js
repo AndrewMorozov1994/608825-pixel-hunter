@@ -1,5 +1,4 @@
-const URL = `https://es.dump.academy/pixel-hunter/questions`;
-const DEFAULT_NAME = `playerName`;
+const URL = `https://es.dump.academy/pixel-hunter`;
 const APP_ID = 20001082;
 
 const checkStatus = (response) => {
@@ -49,13 +48,13 @@ const loadQuestions = (data) => {
 
 export default class Loader {
   static loadData() {
-    return window.fetch(URL)
+    return window.fetch(`${URL}/questions`)
       .then(checkStatus)
       .then(toJSON)
       .then(loadQuestions);
   }
 
-  static saveResults(data, name = DEFAULT_NAME) {
+  static saveResults(data, name) {
     const requestSettings = {
       body: JSON.stringify(data),
       headers: {
@@ -68,7 +67,7 @@ export default class Loader {
       .then(checkStatus);
   }
 
-  static loadResults(name = DEFAULT_NAME) {
+  static loadResults(name) {
     return window.fetch(`${URL}/stats/${APP_ID}-${name}`)
       .then(checkStatus)
       .then(toJSON);

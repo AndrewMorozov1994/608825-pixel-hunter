@@ -3,8 +3,16 @@ import createTimer from '../data/timer.js';
 import {loadedQuestions} from '../application.js';
 
 export default class GameModel {
+  constructor(playerName) {
+    this._playerName = playerName;
+  }
+
   get stat() {
     return this._stat;
+  }
+
+  get player() {
+    return this._playerName;
   }
 
   init() {
