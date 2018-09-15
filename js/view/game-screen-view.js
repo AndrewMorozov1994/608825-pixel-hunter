@@ -42,7 +42,7 @@ export default class GameView extends AbstractView {
         break;
 
       case questionTypes.PHOTO_OR_PAINT:
-        for (let item of gameAnswers) {
+        for (const item of gameAnswers) {
           item.addEventListener(`click`, (evt) => {
             chooseAnswer(evt, this.element, this._state);
             this.onAnswer();
@@ -51,7 +51,7 @@ export default class GameView extends AbstractView {
         break;
 
       case questionTypes.FIND_PAINT:
-        for (let item of gameAnswers) {
+        for (const item of gameAnswers) {
           item.addEventListener(`click`, (evt) => {
             chooseAnswer(evt, this.element, this._state);
             this.onAnswer();
@@ -60,7 +60,7 @@ export default class GameView extends AbstractView {
         break;
 
       case questionTypes.FIND_PHOTO:
-        for (let item of gameAnswers) {
+        for (const item of gameAnswers) {
           item.addEventListener(`click`, (evt) => {
             chooseAnswer(evt, this.element, this._state);
             this.onAnswer();
