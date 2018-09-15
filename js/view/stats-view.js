@@ -6,15 +6,18 @@ export default class StatsView extends AbstractView {
   constructor(stat) {
     super();
     this._stat = stat; // [stat.length - 1];
+    this._lastStat = stat[stat.length - 1];
     // this._prevState = stat[stat.length - 2];
   }
 
   get template() {
-    return this._stat.map((it) => {
-      return `
+    return `
       <section class="result">
-          <h2 class="result__title">${it.lives >= 0 ? `Победа!` : `Поражение`}</h2>
-          <table class="result__table">
+          <h2 class="result__title">${this._lastStat.lives >= 0 ? `Победа!` : `Поражение`}</h2>
+          
+          
+          ${this._stat.map((it) => {
+    return `<table class="result__table">
             <tr>
               <td class="result__number"></td>
               <td colspan="2">
@@ -47,11 +50,11 @@ export default class StatsView extends AbstractView {
             <tr>
               <td colspan="5" class="result__total  result__total--final">${it.lives >= 0 ? calculateScores(it.answers, it.lives) : `fail`}</td>
             </tr>
-          </table>
+          </table>`;
+  }).join(``)}
           
     
         </section>`;
-    });
   }
 
   bind() {
