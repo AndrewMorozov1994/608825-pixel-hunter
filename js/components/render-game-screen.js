@@ -89,7 +89,7 @@ export default class GameScreen {
     if (this._model.stat.lives >= 0 && this._model.stat.currentQuestion <= 9) {
       this._updateGame();
     } else {
-      Router.showStats(this._model.stat);
+      Router.finish(this._model.stat);
     }
     resetGame();
   }
