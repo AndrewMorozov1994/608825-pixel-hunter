@@ -1,5 +1,5 @@
 const URL = `https://es.dump.academy/pixel-hunter`;
-const APP_ID = 20001082;
+const APP_ID = 20001084;
 
 const checkStatus = (response) => {
   if (response.ok) {

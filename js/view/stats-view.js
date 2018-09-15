@@ -5,18 +5,15 @@ import renderStats from '../tempates/render-stats.js';
 export default class StatsView extends AbstractView {
   constructor(stat) {
     super();
-    this._stat = stat; // [stat.length - 1];
     this._lastStat = stat[stat.length - 1];
-    // this._prevState = stat[stat.length - 2];
+    this._statistics = stat.length > 3 ? stat.splice(stat.length - 3).reverse() : stat.reverse();
   }
 
   get template() {
     return `
       <section class="result">
           <h2 class="result__title">${this._lastStat.lives >= 0 ? `Победа!` : `Поражение`}</h2>
-          
-          
-          ${this._stat.map((it) => {
+          ${this._statistics.map((it) => {
     return `<table class="result__table">
             <tr>
               <td class="result__number"></td>
@@ -52,8 +49,6 @@ export default class StatsView extends AbstractView {
             </tr>
           </table>`;
   }).join(``)}
-          
-    
         </section>`;
   }
 
