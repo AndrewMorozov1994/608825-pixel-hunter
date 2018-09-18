@@ -1,6 +1,4 @@
-import {FrameSize} from '../game-count.js';
 import resize from '../data/resize.js';
-
 
 const URL = `https://es.dump.academy/pixel-hunter`;
 const APP_ID = 20001084;
