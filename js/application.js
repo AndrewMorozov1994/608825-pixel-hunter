@@ -46,7 +46,7 @@ export default class Router {
   }
 
   static showGame(name) {
-    const gameScreen = new GameScreen(name);
+    const gameScreen = new GameScreen(name, loadedQuestions);
     gameScreen.startGame();
     changeScreen(gameScreen.element);
   }

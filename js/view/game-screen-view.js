@@ -3,18 +3,18 @@ import renderQuestion from '../tempates/render-question.js';
 import renderStats from '../tempates/render-stats.js';
 import {questionTypes} from '../data/data.js';
 import {chooseAnswer} from '../data/answers.js';
-import {loadedQuestions} from '../application.js';
 const checkedInputQuantity = 2;
 
 export default class GameView extends AbstractView {
-  constructor(state) {
+  constructor(state, loadedQuestions) {
     super();
     this._state = state;
+    this._loadedQuestions = loadedQuestions;
   }
 
   get template() {
     const {currentQuestion, answersTextType} = this._state;
-    const question = loadedQuestions[currentQuestion];
+    const question = this._loadedQuestions[currentQuestion];
 
     return `
     <section class="game">
@@ -34,7 +34,7 @@ export default class GameView extends AbstractView {
       case questionTypes.TWO_IMG:
         const seeNextScreen = (evt) => {
           if ([...gameAnswers].filter((el) => el.checked).length === checkedInputQuantity) {
-            chooseAnswer(evt, this.element, this._state);
+            chooseAnswer(evt, this.element, this._state, this._loadedQuestions);
             this.onAnswer();
           }
         };
@@ -44,7 +44,7 @@ export default class GameView extends AbstractView {
       case questionTypes.PHOTO_OR_PAINT:
         for (const item of gameAnswers) {
           item.addEventListener(`click`, (evt) => {
-            chooseAnswer(evt, this.element, this._state);
+            chooseAnswer(evt, this.element, this._state, this._loadedQuestions);
             this.onAnswer();
           });
         }
@@ -53,7 +53,7 @@ export default class GameView extends AbstractView {
       case questionTypes.FIND_PAINT:
         for (const item of gameAnswers) {
           item.addEventListener(`click`, (evt) => {
-            chooseAnswer(evt, this.element, this._state);
+            chooseAnswer(evt, this.element, this._state, this._loadedQuestions);
             this.onAnswer();
           });
         }
@@ -62,7 +62,7 @@ export default class GameView extends AbstractView {
       case questionTypes.FIND_PHOTO:
         for (const item of gameAnswers) {
           item.addEventListener(`click`, (evt) => {
-            chooseAnswer(evt, this.element, this._state);
+            chooseAnswer(evt, this.element, this._state, this._loadedQuestions);
             this.onAnswer();
           });
         }

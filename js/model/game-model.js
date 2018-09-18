@@ -1,10 +1,10 @@
 import {state, Timer} from '../game-count.js';
 import createTimer from '../data/timer.js';
-import {loadedQuestions} from '../application.js';
 
 export default class GameModel {
-  constructor(playerName) {
+  constructor(playerName, loadedQuestions) {
     this._playerName = playerName;
+    this._loaded = loadedQuestions;
   }
 
   get state() {
@@ -17,13 +17,13 @@ export default class GameModel {
 
   init() {
     this._state = Object.assign({}, state, {
-      question: [...loadedQuestions]
+      question: [...this._loaded]
     });
   }
 
   nextGame() {
     this._state = Object.assign({}, this._state, {
-      question: loadedQuestions[this._state.currentQuestion + 1]
+      question: this._loaded[this._state.currentQuestion + 1]
     });
     this._resetTime();
     this._timer = createTimer(this._state.time);

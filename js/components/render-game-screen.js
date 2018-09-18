@@ -5,8 +5,9 @@ import GameModel from '../model/game-model.js';
 import headerScreen from './header.js';
 
 export default class GameScreen {
-  constructor(name) {
-    this._model = new GameModel(name);
+  constructor(name, loadedQuestions) {
+    this._model = new GameModel(name, loadedQuestions);
+    this._loadedQuestions = loadedQuestions;
   }
 
   get element() {
@@ -53,7 +54,7 @@ export default class GameScreen {
     this._runTimer();
     this._updateTimer();
     this._updateLives();
-    const game = new GameView(this._model.state);
+    const game = new GameView(this._model.state, this._loadedQuestions);
 
     if (this._game) {
       this._root.replaceChild(game.element, this._game.element);

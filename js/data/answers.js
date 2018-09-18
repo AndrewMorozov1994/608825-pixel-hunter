@@ -1,5 +1,4 @@
 import {state} from '../game-count.js';
-import {loadedQuestions} from '../application.js';
 
 const Types = {
   WRONG: 0,
@@ -18,7 +17,7 @@ const AnswersType = {
   PHOTO: `photo`
 };
 
-export const chooseAnswer = (evt, element, statistics) => {
+export const chooseAnswer = (evt, element, statistics, loadedQuestions) => {
 
   switch (loadedQuestions[statistics.currentQuestion].question) {
     case AnswersText.TWO_IMG:

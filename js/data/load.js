@@ -1,3 +1,7 @@
+import {FrameSize} from '../game-count.js';
+import resize from '../data/resize.js';
+
+
 const URL = `https://es.dump.academy/pixel-hunter`;
 const APP_ID = 20001084;
 
@@ -11,17 +15,22 @@ const checkStatus = (response) => {
 
 const toJSON = (response) => response.json();
 
-const loadImage = (url) => {
+const loadImage = (dataImage) => {
   return new Promise((onSuccess, onError) => {
-    const img = new Image();
-    img.src = url;
+    const image = new Image();
+    image.src = dataImage.url;
 
-    img.onload = () => {
-      onSuccess(url);
+    image.onload = () => {
+      const imageSize = resize({width: dataImage.width, height: dataImage.height}, {width: image.width, height: image.height});
+
+      dataImage.width = imageSize.width;
+      dataImage.height = imageSize.height;
+
+      onSuccess(dataImage);
     };
 
-    img.onError = (error) => {
-      onError(error);
+    image.onerror = () => {
+      onError(`Картинка не загружена ${dataImage.url}`);
     };
   });
 };
@@ -34,7 +43,7 @@ const loadQuestions = (data) => {
   });
 
   const images = answers.map((answer) => {
-    return loadImage(answer.image.url);
+    return loadImage(answer.image);
   });
 
   return Promise.all(images)
