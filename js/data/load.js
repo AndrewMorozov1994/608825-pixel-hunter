@@ -54,14 +54,25 @@ const loadQuestions = (data) => {
 };
 
 export default class Loader {
-  static loadData() {
-    return window.fetch(`${URL}/questions`)
-      .then(checkStatus)
-      .then(toJSON)
-      .then(loadQuestions);
+  // static loadData() {
+  //   return window.fetch(`${URL}/questions`)
+  //     .then(checkStatus)
+  //     .then(toJSON)
+  //     .then(loadQuestions);
+  // }
+  async loadData() {
+    try {
+      const response = await fetch(`${URL}/questions`);
+      const data = checkStatus(response);
+      const dataJson = await toJSON(data);
+      return await loadQuestions(dataJson);
+    } catch (err) {
+      return err;
+    }
   }
 
-  static saveResults(data, name) {
+
+  async saveResults(data, name) {
     const requestSettings = {
       body: JSON.stringify(data),
       headers: {
@@ -70,13 +81,26 @@ export default class Loader {
       method: `POST`
     };
 
-    return window.fetch(`${URL}/stats/${APP_ID}-${name}`, requestSettings)
-      .then(checkStatus);
+    // return window.fetch(`${URL}/stats/${APP_ID}-${name}`, requestSettings)
+    //   .then(checkStatus);
+    try {
+      const response = await fetch(`${URL}/stats/${APP_ID}-${name}`, requestSettings);
+      return checkStatus(response);
+    } catch (err) {
+      return err;
+    }
   }
 
-  static loadResults(name) {
-    return window.fetch(`${URL}/stats/${APP_ID}-${name}`)
-      .then(checkStatus)
-      .then(toJSON);
+  async loadResults(name) {
+    // return window.fetch(`${URL}/stats/${APP_ID}-${name}`)
+    //   .then(checkStatus)
+    //   .then(toJSON);
+    try {
+      const response = await fetch(`${URL}/stats/${APP_ID}-${name}`);
+      const data = checkStatus(response);
+      return await toJSON(data);
+    } catch (err) {
+      return err;
+    }
   }
 }
