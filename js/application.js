@@ -7,7 +7,7 @@ import GameScreen from './components/render-game-screen.js';
 import ErrorScreen from './components/error.js';
 import Loader from './data/load.js';
 
-export let loadedQuestions = [];
+export const loadedQuestions = [];
 
 export default class Router {
   static start() {
@@ -19,7 +19,7 @@ export default class Router {
     const loader = new Loader();
     try {
       const questData = await loader.loadData();
-      loadedQuestions = loadedQuestions.concat(questData);
+      loadedQuestions.push(...questData);
       Router.showGreeting();
     } catch (err) {
       Router.showError(err);
