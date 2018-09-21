@@ -12,15 +12,14 @@ export const loadedQuestions = [];
 export default class Router {
   static start() {
     Router.showIntro();
-    Router.load();
   }
 
-  static async load() {
+  static async load(next) {
     const loader = new Loader();
     try {
       const questData = await loader.loadData();
       loadedQuestions.push(...questData);
-      Router.showGreeting();
+      next();
     } catch (err) {
       Router.showError(err);
     }
@@ -39,12 +38,18 @@ export default class Router {
 
   static showIntro() {
     const introScreen = new IntroScreen();
+    const nextScreen = () => {
+      introScreen.element.classList.add(`intro--next`);
+      setTimeout(() => Router.showGreeting(), 500);
+    };
     changeScreen(introScreen.element);
+    Router.load(nextScreen);
   }
 
   static showGreeting() {
     const greetingScreen = new GreetingScreen();
     changeScreen(greetingScreen.element);
+    setTimeout(() => greetingScreen.element.querySelector(`.greeting`).classList.add(`greeting--show`), 10);
   }
 
   static showRules() {
