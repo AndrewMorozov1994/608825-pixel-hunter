@@ -54,12 +54,6 @@ const loadQuestions = (data) => {
 };
 
 export default class Loader {
-  // static loadData() {
-  //   return window.fetch(`${URL}/questions`)
-  //     .then(checkStatus)
-  //     .then(toJSON)
-  //     .then(loadQuestions);
-  // }
   async loadData() {
     try {
       const response = await fetch(`${URL}/questions`);
@@ -81,8 +75,6 @@ export default class Loader {
       method: `POST`
     };
 
-    // return window.fetch(`${URL}/stats/${APP_ID}-${name}`, requestSettings)
-    //   .then(checkStatus);
     try {
       const response = await fetch(`${URL}/stats/${APP_ID}-${name}`, requestSettings);
       return checkStatus(response);
@@ -92,9 +84,6 @@ export default class Loader {
   }
 
   async loadResults(name) {
-    // return window.fetch(`${URL}/stats/${APP_ID}-${name}`)
-    //   .then(checkStatus)
-    //   .then(toJSON);
     try {
       const response = await fetch(`${URL}/stats/${APP_ID}-${name}`);
       const data = checkStatus(response);

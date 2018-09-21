@@ -7,27 +7,34 @@ import GameScreen from './components/render-game-screen.js';
 import ErrorScreen from './components/error.js';
 import Loader from './data/load.js';
 
-export const loadedQuestions = [];
+export let loadedQuestions = [];
+
 export default class Router {
   static start() {
     Router.showIntro();
-    Loader.loadData()
-      .then((it) => loadedQuestions.push(...it))
-      .then(Router.showGreeting)
-      .catch((error) => {
-        Router.showError(error);
-      });
+    Router.load();
   }
 
-  static finish(state, player) {
-    Loader.saveResults(state, player)
-      .then(() => Loader.loadResults(player))
-      .then((result) => {
-        Router.showStats(result);
-      })
-      .catch((error) => {
-        Router.showError(error);
-      });
+  static async load() {
+    const loader = new Loader();
+    try {
+      const questData = await loader.loadData();
+      loadedQuestions = loadedQuestions.concat(questData);
+      Router.showGreeting();
+    } catch (err) {
+      Router.showError(err);
+    }
+  }
+
+  static async finish(state, player) {
+    const loader = new Loader();
+    try {
+      await loader.saveResults(state, player);
+      const result = await loader.loadResults(player);
+      Router.showStats(result);
+    } catch (err) {
+      Router.showError(err);
+    }
   }
 
   static showIntro() {
