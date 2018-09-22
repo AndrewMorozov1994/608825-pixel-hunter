@@ -1,4 +1,4 @@
-import {changeScreen} from './utils.js';
+import {changeScreen, crossFade} from './utils.js';
 import IntroScreen from './components/intro.js';
 import GreetingScreen from './components/greeting.js';
 import RulesScreen from './components/rules.js';
@@ -11,15 +11,18 @@ export const loadedQuestions = [];
 
 export default class Router {
   static start() {
-    Router.showIntro();
+    const introScreen = new IntroScreen();
+    const greetingScreen = new GreetingScreen();
+    const runCrossFade = crossFade(introScreen.element, greetingScreen.element);
+    Router.load();
+    runCrossFade();
   }
 
-  static async load(next) {
+  static async load() {
     const loader = new Loader();
     try {
       const questData = await loader.loadData();
       loadedQuestions.push(...questData);
-      next();
     } catch (err) {
       Router.showError(err);
     }
@@ -36,20 +39,9 @@ export default class Router {
     }
   }
 
-  static showIntro() {
-    const introScreen = new IntroScreen();
-    const nextScreen = () => {
-      introScreen.element.classList.add(`intro--next`);
-      setTimeout(() => Router.showGreeting(), 500);
-    };
-    changeScreen(introScreen.element);
-    Router.load(nextScreen);
-  }
-
   static showGreeting() {
     const greetingScreen = new GreetingScreen();
     changeScreen(greetingScreen.element);
-    setTimeout(() => greetingScreen.element.querySelector(`.greeting`).classList.add(`greeting--show`), 10);
   }
 
   static showRules() {
